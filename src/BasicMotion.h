@@ -17,6 +17,7 @@
 #include <QTextEdit>
 #include <QTimer>
 #include "jscontroller.h"
+#include "cameraThread.h"
 
 #define sendCommandsTime 50
 
@@ -59,6 +60,7 @@ private:
     QTimer *sendCommandsTimer1, *sendCommandsTimer2;
     JsController *joystick[2];
     int nJoystickConnected, joystick1, joystick2;
+    cameraThread *camThread;
     
 public slots:
     void wheelMove();

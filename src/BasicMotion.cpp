@@ -158,6 +158,15 @@ BasicMotion::BasicMotion()
     
     QObject::connect(sendCommandsTimer1,SIGNAL(timeout()),this, SLOT(sendControllerCommands1()));
     QObject::connect(sendCommandsTimer2,SIGNAL(timeout()),this, SLOT(sendControllerCommands2()));
+    
+    camThread = new cameraThread();
+    camThread->setWorkingThread(true);
+    camThread->start();
+    namedWindow("Real time video", WINDOW_NORMAL);
+    //setWindowProperty("Real time video", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
+    
+    //namedWindow("Real time video", WINDOW_AUTOSIZE );
+    
 }
 
 BasicMotion::~BasicMotion()
@@ -178,6 +187,9 @@ void BasicMotion::closeEvent(QCloseEvent* event)
     remoteConnectionController2->terminate();
     myThread1->exit();
     myThread2->exit();
+    camThread->setWorkingThread(false);
+    destroyWindow("Real time video");
+    camThread->exit();
 }
 
 
