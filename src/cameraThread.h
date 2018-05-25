@@ -34,14 +34,12 @@ class cameraThread : public QThread
 public:
     cameraThread();
     void setWorkingThread(bool workThread);
+    void setCamId(int aCamId);
     
 private:
     VideoCapture *stream1;
     bool work;
-    
-signals:
-    void centerComputed(char instruction);
-    
+    int camId;    
 };
 
 #endif // CAMERATHREAD_H

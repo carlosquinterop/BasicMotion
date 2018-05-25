@@ -27,21 +27,21 @@ void cameraThread::setWorkingThread(bool workThread)
     work = workThread;
 }
 
+void cameraThread::setCamId(int aCamId)
+{
+    camId = aCamId;
+}
 
 void cameraThread::run()
 {
     Mat capturedImage;
-    stream1 = new VideoCapture(0);
-    char instruction = 0;
-        
+    stream1 = new VideoCapture(camId);
+    
     while(work)
     {
 	*stream1 >> capturedImage;
-	emit centerComputed(instruction);
-	//namedWindow("Real time video", WINDOW_NORMAL);
 	imshow("Real time video", capturedImage);
 	resizeWindow("Real time video", 1200, 1200);
-	//setWindowProperty("Real time video", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
     }
     delete stream1;
 }

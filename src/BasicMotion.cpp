@@ -1,6 +1,6 @@
 #include "BasicMotion.h"
 
-BasicMotion::BasicMotion()
+BasicMotion::BasicMotion(int camId)
 {
     //Widget constructors
     /////////////////////
@@ -22,7 +22,6 @@ BasicMotion::BasicMotion()
     stopButton = new QPushButton("Stop");
     connectButton = new QPushButton("Serial Connection");
     synchButtonControllers = new QPushButton("Synch");
-    remoteState = new QTextEdit("Remote");
     startJoystickController1 = new QPushButton("Start");
     startJoystickController2 = new QPushButton("Start");
     closeButton = new QPushButton("Close");
@@ -156,6 +155,7 @@ BasicMotion::BasicMotion()
     
     camThread = new cameraThread();
     camThread->setWorkingThread(true);
+    camThread->setCamId(camId);
     camThread->start();
     namedWindow("Real time video", WINDOW_NORMAL);    
 }
@@ -293,7 +293,6 @@ void BasicMotion::PCCheckBoxState(int state)
   if(pcControl->isChecked())
   {
       wirelessControl->setChecked(false);
-      remoteState->setText("");
       leftWheelVel->setEnabled(true);
       rightWheelVel->setEnabled(true);
       moveButton->setEnabled(true);
@@ -305,7 +304,6 @@ void BasicMotion::PCCheckBoxState(int state)
   else
   {
       wirelessControl->setChecked(true);
-      remoteState->setText("Remote");
       leftWheelVel->setEnabled(false);
       rightWheelVel->setEnabled(false);
       moveButton->setEnabled(false);
@@ -321,7 +319,6 @@ void BasicMotion::WirelessCheckBoxState(int state)
   if(!wirelessControl->isChecked())
   {
       pcControl->setChecked(true);
-      remoteState->setText("");
       leftWheelVel->setEnabled(true);
       rightWheelVel->setEnabled(true);
       moveButton->setEnabled(true);
@@ -333,7 +330,6 @@ void BasicMotion::WirelessCheckBoxState(int state)
   else
   {
       pcControl->setChecked(false);
-      remoteState->setText("Remote");
       leftWheelVel->setEnabled(false);
       rightWheelVel->setEnabled(false);
       moveButton->setEnabled(false);
@@ -386,7 +382,6 @@ void BasicMotion::readyReadStandardOutput1()
 
 void BasicMotion::startJoystickSlot1()
 {
-    //Lanzar el hilo
     if (nJoystickConnected == 0  && joystick1 == -1)
     {
 	joystick1 = 0;
@@ -427,8 +422,6 @@ void BasicMotion::startJoystickSlot2()
 	nJoystickConnected++;
     }
     
-    
-    //Lanzar el hilo
     if(startJoystickController2->text() == "Start")
     {
 	myThread2->start();

@@ -5,7 +5,15 @@
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
-    BasicMotion basicmotion;
-    basicmotion.show();
-    return app.exec();
+    if (argc == 2)
+    {
+      BasicMotion basicmotion(atoi(argv[1]));
+      basicmotion.show();
+      return app.exec();
+    }
+    else
+    {
+      printf("Error: Incorrect number of parameters\nUsage: ./basicmotion camId\n");
+      return 1;
+    }
 }

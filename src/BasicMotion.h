@@ -27,7 +27,7 @@ class BasicMotion : public QMainWindow
     Q_OBJECT
 
 public:
-    BasicMotion();
+    BasicMotion(int camId);
     virtual ~BasicMotion();
     QGridLayout *PClayout, *controllerLayout;
     QGridLayout *mainLayout;
@@ -43,7 +43,6 @@ public:
     QDial *steeringDial;
     QSlider *speedSlider;
     QCheckBox *pcControl, *wirelessControl;
-    QTextEdit *remoteState;
     QProcess *remoteConnectionController1;
     virtual void closeEvent ( QCloseEvent * event );
     
