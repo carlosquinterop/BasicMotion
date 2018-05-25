@@ -37,13 +37,14 @@ public:
     QPushButton *moveButton;
     QPushButton *stopButton;
     QPushButton *connectButton;
-    QPushButton *synchButtonController1, *synchButtonController2;
+    QPushButton *synchButtonControllers;
     QPushButton *startJoystickController1, *startJoystickController2;
+    QPushButton *closeButton;
     QDial *steeringDial;
     QSlider *speedSlider;
     QCheckBox *pcControl, *wirelessControl;
     QTextEdit *remoteState;
-    QProcess *remoteConnectionController1, *remoteConnectionController2;
+    QProcess *remoteConnectionController1;
     virtual void closeEvent ( QCloseEvent * event );
     
 private:
@@ -70,17 +71,15 @@ public slots:
     void PCCheckBoxState(int state);
     void WirelessCheckBoxState(int state);
     void clickedConnectButton();
-    void SynchButton1();
-    void SynchButton2();
-    void processStarted1();
-    void processStarted2();
+    void SynchButton();
+    void processStarted();
     void readyReadStandardOutput1();
-    void readyReadStandardOutput2();
     void startJoystickSlot1();
     void startJoystickSlot2();
     void updateControllerCommands(int controllerId, int* controllerAxes);
     void sendControllerCommands1();
     void sendControllerCommands2();
+    void clickedClosedButton();
 };
 
 #endif // BasicMotion_H

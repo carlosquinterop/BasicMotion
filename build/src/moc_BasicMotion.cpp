@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_BasicMotion_t {
-    QByteArrayData data[25];
-    char stringdata0[377];
+    QByteArrayData data[23];
+    char stringdata0[341];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,32 +40,29 @@ QT_MOC_LITERAL(7, 60, 15), // "PCCheckBoxState"
 QT_MOC_LITERAL(8, 76, 5), // "state"
 QT_MOC_LITERAL(9, 82, 21), // "WirelessCheckBoxState"
 QT_MOC_LITERAL(10, 104, 20), // "clickedConnectButton"
-QT_MOC_LITERAL(11, 125, 12), // "SynchButton1"
-QT_MOC_LITERAL(12, 138, 12), // "SynchButton2"
-QT_MOC_LITERAL(13, 151, 15), // "processStarted1"
-QT_MOC_LITERAL(14, 167, 15), // "processStarted2"
-QT_MOC_LITERAL(15, 183, 24), // "readyReadStandardOutput1"
-QT_MOC_LITERAL(16, 208, 24), // "readyReadStandardOutput2"
-QT_MOC_LITERAL(17, 233, 18), // "startJoystickSlot1"
-QT_MOC_LITERAL(18, 252, 18), // "startJoystickSlot2"
-QT_MOC_LITERAL(19, 271, 24), // "updateControllerCommands"
-QT_MOC_LITERAL(20, 296, 12), // "controllerId"
-QT_MOC_LITERAL(21, 309, 4), // "int*"
-QT_MOC_LITERAL(22, 314, 14), // "controllerAxes"
-QT_MOC_LITERAL(23, 329, 23), // "sendControllerCommands1"
-QT_MOC_LITERAL(24, 353, 23) // "sendControllerCommands2"
+QT_MOC_LITERAL(11, 125, 11), // "SynchButton"
+QT_MOC_LITERAL(12, 137, 14), // "processStarted"
+QT_MOC_LITERAL(13, 152, 24), // "readyReadStandardOutput1"
+QT_MOC_LITERAL(14, 177, 18), // "startJoystickSlot1"
+QT_MOC_LITERAL(15, 196, 18), // "startJoystickSlot2"
+QT_MOC_LITERAL(16, 215, 24), // "updateControllerCommands"
+QT_MOC_LITERAL(17, 240, 12), // "controllerId"
+QT_MOC_LITERAL(18, 253, 4), // "int*"
+QT_MOC_LITERAL(19, 258, 14), // "controllerAxes"
+QT_MOC_LITERAL(20, 273, 23), // "sendControllerCommands1"
+QT_MOC_LITERAL(21, 297, 23), // "sendControllerCommands2"
+QT_MOC_LITERAL(22, 321, 19) // "clickedClosedButton"
 
     },
     "BasicMotion\0wheelMove\0\0stop\0robotMove\0"
     "robotMove2\0controller\0PCCheckBoxState\0"
     "state\0WirelessCheckBoxState\0"
-    "clickedConnectButton\0SynchButton1\0"
-    "SynchButton2\0processStarted1\0"
-    "processStarted2\0readyReadStandardOutput1\0"
-    "readyReadStandardOutput2\0startJoystickSlot1\0"
-    "startJoystickSlot2\0updateControllerCommands\0"
-    "controllerId\0int*\0controllerAxes\0"
-    "sendControllerCommands1\0sendControllerCommands2"
+    "clickedConnectButton\0SynchButton\0"
+    "processStarted\0readyReadStandardOutput1\0"
+    "startJoystickSlot1\0startJoystickSlot2\0"
+    "updateControllerCommands\0controllerId\0"
+    "int*\0controllerAxes\0sendControllerCommands1\0"
+    "sendControllerCommands2\0clickedClosedButton"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,7 +72,7 @@ static const uint qt_meta_data_BasicMotion[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,24 +80,22 @@ static const uint qt_meta_data_BasicMotion[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  104,    2, 0x0a /* Public */,
-       3,    0,  105,    2, 0x0a /* Public */,
-       4,    0,  106,    2, 0x0a /* Public */,
-       5,    1,  107,    2, 0x0a /* Public */,
-       7,    1,  110,    2, 0x0a /* Public */,
-       9,    1,  113,    2, 0x0a /* Public */,
-      10,    0,  116,    2, 0x0a /* Public */,
-      11,    0,  117,    2, 0x0a /* Public */,
-      12,    0,  118,    2, 0x0a /* Public */,
-      13,    0,  119,    2, 0x0a /* Public */,
-      14,    0,  120,    2, 0x0a /* Public */,
-      15,    0,  121,    2, 0x0a /* Public */,
-      16,    0,  122,    2, 0x0a /* Public */,
-      17,    0,  123,    2, 0x0a /* Public */,
-      18,    0,  124,    2, 0x0a /* Public */,
-      19,    2,  125,    2, 0x0a /* Public */,
-      23,    0,  130,    2, 0x0a /* Public */,
-      24,    0,  131,    2, 0x0a /* Public */,
+       1,    0,   94,    2, 0x0a /* Public */,
+       3,    0,   95,    2, 0x0a /* Public */,
+       4,    0,   96,    2, 0x0a /* Public */,
+       5,    1,   97,    2, 0x0a /* Public */,
+       7,    1,  100,    2, 0x0a /* Public */,
+       9,    1,  103,    2, 0x0a /* Public */,
+      10,    0,  106,    2, 0x0a /* Public */,
+      11,    0,  107,    2, 0x0a /* Public */,
+      12,    0,  108,    2, 0x0a /* Public */,
+      13,    0,  109,    2, 0x0a /* Public */,
+      14,    0,  110,    2, 0x0a /* Public */,
+      15,    0,  111,    2, 0x0a /* Public */,
+      16,    2,  112,    2, 0x0a /* Public */,
+      20,    0,  117,    2, 0x0a /* Public */,
+      21,    0,  118,    2, 0x0a /* Public */,
+      22,    0,  119,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -115,10 +110,8 @@ static const uint qt_meta_data_BasicMotion[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, 0x80000000 | 18,   17,   19,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, 0x80000000 | 21,   20,   22,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -138,17 +131,15 @@ void BasicMotion::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 4: _t->PCCheckBoxState((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->WirelessCheckBoxState((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->clickedConnectButton(); break;
-        case 7: _t->SynchButton1(); break;
-        case 8: _t->SynchButton2(); break;
-        case 9: _t->processStarted1(); break;
-        case 10: _t->processStarted2(); break;
-        case 11: _t->readyReadStandardOutput1(); break;
-        case 12: _t->readyReadStandardOutput2(); break;
-        case 13: _t->startJoystickSlot1(); break;
-        case 14: _t->startJoystickSlot2(); break;
-        case 15: _t->updateControllerCommands((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int*(*)>(_a[2]))); break;
-        case 16: _t->sendControllerCommands1(); break;
-        case 17: _t->sendControllerCommands2(); break;
+        case 7: _t->SynchButton(); break;
+        case 8: _t->processStarted(); break;
+        case 9: _t->readyReadStandardOutput1(); break;
+        case 10: _t->startJoystickSlot1(); break;
+        case 11: _t->startJoystickSlot2(); break;
+        case 12: _t->updateControllerCommands((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int*(*)>(_a[2]))); break;
+        case 13: _t->sendControllerCommands1(); break;
+        case 14: _t->sendControllerCommands2(); break;
+        case 15: _t->clickedClosedButton(); break;
         default: ;
         }
     }
@@ -179,13 +170,13 @@ int BasicMotion::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 16)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 16;
     }
     return _id;
 }

@@ -21,11 +21,11 @@ BasicMotion::BasicMotion()
     moveButton = new QPushButton("Move");
     stopButton = new QPushButton("Stop");
     connectButton = new QPushButton("Serial Connection");
-    synchButtonController1 = new QPushButton("Synch");
-    synchButtonController2 = new QPushButton("Synch");
+    synchButtonControllers = new QPushButton("Synch");
     remoteState = new QTextEdit("Remote");
     startJoystickController1 = new QPushButton("Start");
     startJoystickController2 = new QPushButton("Start");
+    closeButton = new QPushButton("Close");
     
     steeringDial = new QDial();
     
@@ -37,7 +37,6 @@ BasicMotion::BasicMotion()
     myThread1 = new workerThread();
     myThread2 = new workerThread();
     remoteConnectionController1 = new QProcess();
-    remoteConnectionController2 = new QProcess();
     sendCommandsTimer1 = new QTimer();
     sendCommandsTimer2 = new QTimer();
     ///////////////////////////////////////
@@ -48,6 +47,7 @@ BasicMotion::BasicMotion()
     
     //Add widgets to main layout
     mainLayout->addWidget(connectButton, 0, 0);
+    mainLayout->addWidget(closeButton, 0, 1);
     mainLayout->addLayout(PClayout, 1, 0);
     mainLayout->addLayout(controllerLayout, 1, 1);
     
@@ -66,17 +66,16 @@ BasicMotion::BasicMotion()
     
     //Add widgets to Controllers layout
     controllerLayout->addWidget(wirelessControl, 0, 0);
-    controllerLayout->addWidget(new QLabel("Controller 1"), 1, 0);
-    controllerLayout->addWidget(new QLabel("Robot ID"), 2, 0);
-    controllerLayout->addWidget(controller1RobotId, 2, 1);
-    controllerLayout->addWidget(synchButtonController1, 3, 0);
+    controllerLayout->addWidget(synchButtonControllers, 1, 0);
+    controllerLayout->addWidget(new QLabel("Controller 1"), 2, 0);
+    controllerLayout->addWidget(new QLabel("Robot ID"), 3, 0);
+    controllerLayout->addWidget(controller1RobotId, 3, 1);
     controllerLayout->addWidget(startJoystickController1, 4, 0);
     
     controllerLayout->addWidget(new QLabel("Controller 2"), 5, 0);
     controllerLayout->addWidget(new QLabel("Robot ID"), 6, 0);
     controllerLayout->addWidget(controller2RobotId, 6, 1);
-    controllerLayout->addWidget(synchButtonController2, 7, 0);
-    controllerLayout->addWidget(startJoystickController2, 8, 0);
+    controllerLayout->addWidget(startJoystickController2, 7, 0);
     /////////////////////////////////////
     
     
@@ -100,7 +99,7 @@ BasicMotion::BasicMotion()
     controller2RobotId->addItem("2");
     controller2RobotId->addItem("3");
     controller2RobotId->addItem("4");
-    controller2RobotId->setCurrentIndex(1);
+    controller2RobotId->setCurrentIndex(2);
         
     leftWheelVel->setEnabled(false);
     rightWheelVel->setEnabled(false);
@@ -140,15 +139,11 @@ BasicMotion::BasicMotion()
     QObject::connect(pcControl, SIGNAL(stateChanged(int)), this, SLOT(PCCheckBoxState(int)));
     QObject::connect(wirelessControl, SIGNAL(stateChanged(int)), this, SLOT(WirelessCheckBoxState(int)));
     QObject::connect(connectButton, SIGNAL(clicked()), this, SLOT(clickedConnectButton()));
+    QObject::connect(closeButton, SIGNAL(clicked()), this, SLOT(clickedClosedButton()));
     
-    QObject::connect(synchButtonController1, SIGNAL(clicked()), this, SLOT(SynchButton1()));
-    QObject::connect(synchButtonController2, SIGNAL(clicked()), this, SLOT(SynchButton2()));
-
-    QObject::connect(remoteConnectionController1, SIGNAL(started()), this, SLOT(processStarted1()));
-    QObject::connect(remoteConnectionController2, SIGNAL(started()), this, SLOT(processStarted2()));
-    
+    QObject::connect(synchButtonControllers, SIGNAL(clicked()), this, SLOT(SynchButton()));
+    QObject::connect(remoteConnectionController1, SIGNAL(started()), this, SLOT(processStarted()));
     QObject::connect(remoteConnectionController1,SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput1()));
-    QObject::connect(remoteConnectionController2,SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput2()));
     
     QObject::connect(startJoystickController1,SIGNAL(clicked()),this,SLOT(startJoystickSlot1()));
     QObject::connect(startJoystickController2,SIGNAL(clicked()),this,SLOT(startJoystickSlot2()));
@@ -162,11 +157,7 @@ BasicMotion::BasicMotion()
     camThread = new cameraThread();
     camThread->setWorkingThread(true);
     camThread->start();
-    namedWindow("Real time video", WINDOW_NORMAL);
-    //setWindowProperty("Real time video", WND_PROP_FULLSCREEN, WINDOW_FULLSCREEN);
-    
-    //namedWindow("Real time video", WINDOW_AUTOSIZE );
-    
+    namedWindow("Real time video", WINDOW_NORMAL);    
 }
 
 BasicMotion::~BasicMotion()
@@ -184,7 +175,6 @@ void BasicMotion::closeEvent(QCloseEvent* event)
     }
     QWidget::closeEvent(event);
     remoteConnectionController1->terminate();
-    remoteConnectionController2->terminate();
     myThread1->exit();
     myThread2->exit();
     camThread->setWorkingThread(false);
@@ -310,8 +300,7 @@ void BasicMotion::PCCheckBoxState(int state)
       stopButton->setEnabled(true);
       steeringDial->setEnabled(true);
       speedSlider->setEnabled(true);
-      synchButtonController1->setEnabled(false);
-      synchButtonController2->setEnabled(false);
+      synchButtonControllers->setEnabled(false);
   }
   else
   {
@@ -323,8 +312,7 @@ void BasicMotion::PCCheckBoxState(int state)
       stopButton->setEnabled(false);
       steeringDial->setEnabled(false);
       speedSlider->setEnabled(false);
-      synchButtonController1->setEnabled(true);
-      synchButtonController2->setEnabled(true);
+      synchButtonControllers->setEnabled(true);
   }
 }
 
@@ -340,8 +328,7 @@ void BasicMotion::WirelessCheckBoxState(int state)
       stopButton->setEnabled(true);
       steeringDial->setEnabled(true);
       speedSlider->setEnabled(true);
-      synchButtonController1->setEnabled(false);
-      synchButtonController2->setEnabled(false);
+      synchButtonControllers->setEnabled(false);
   }
   else
   {
@@ -353,8 +340,7 @@ void BasicMotion::WirelessCheckBoxState(int state)
       stopButton->setEnabled(false);
       steeringDial->setEnabled(false);
       speedSlider->setEnabled(false);
-      synchButtonController1->setEnabled(true);
-      synchButtonController2->setEnabled(true);
+      synchButtonControllers->setEnabled(true);
   }
 }
 
@@ -380,38 +366,22 @@ void BasicMotion::clickedConnectButton()
     }
 }
 
-void BasicMotion::SynchButton1()
+void BasicMotion::SynchButton()
 {
     remoteConnectionController1->start("ds4drv");
 }
 
-void BasicMotion::SynchButton2()
+void BasicMotion::processStarted()
 {
-    remoteConnectionController2->start("ds4drv");
+    cout << "Process ds4drv Started" << endl;
+    synchButtonControllers->setEnabled(false);
 }
 
-void BasicMotion::processStarted1()
-{
-    cout << "Process 1 Started" << endl;
-    synchButtonController1->setEnabled(false);
-}
-
-void BasicMotion::processStarted2()
-{
-    cout << "Process 2 Started" << endl;
-    synchButtonController2->setEnabled(false);
-}
 
 void BasicMotion::readyReadStandardOutput1()
 {
     mOutputString1 = remoteConnectionController1->readAllStandardOutput();
     cout << mOutputString1.toStdString() << endl;
-}
-
-void BasicMotion::readyReadStandardOutput2()
-{  
-    mOutputString2 = remoteConnectionController2->readAllStandardOutput();
-    cout << mOutputString2.toStdString() << endl;
 }
 
 void BasicMotion::startJoystickSlot1()
@@ -500,4 +470,20 @@ void BasicMotion::sendControllerCommands1()
 void BasicMotion::sendControllerCommands2()
 {
     robotMove2(joystick2);
+}
+
+void BasicMotion::clickedClosedButton()
+{
+    if(serialPort->isOpen())
+    {
+	serialPort->write(buildAllRobotsStopPacket());
+        serialPort->close();
+	serialConnection = false;
+    }
+    remoteConnectionController1->terminate();
+    myThread1->exit();
+    myThread2->exit();
+    camThread->setWorkingThread(false);
+    destroyWindow("Real time video");
+    camThread->exit();
 }
