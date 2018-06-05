@@ -21,9 +21,14 @@ SYSTEMS REQUIREMENTS
 	- Ubuntu 14.04 64 bits
 	- Qt 5.7 Development Libraries
 	- CMake 3.5.1
+	- Python 2.7 or 3.3+
+	- Python-setuptools
+	- hcitool
 
 INSTALLATION:
-	sudo apt-get install build-essential cmake qtdeclarative5-dev libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libqt5serialport5-dev 
+	sudo apt-get install build-essential cmake qtdeclarative5-dev libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libqt5serialport5-dev
+	sudo apt-get install python-pip
+	sudo pip install ds4drv 
 
 COMPILATION
 	- mkdir build && cd build
