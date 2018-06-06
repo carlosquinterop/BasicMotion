@@ -22,8 +22,7 @@ BasicMotion::BasicMotion(int camId)
     stopButton = new QPushButton("Stop");
     connectButton = new QPushButton("Serial Connection");
     synchButtonControllers = new QPushButton("Synch");
-    startJoystickController1 = new QPushButton("Start");
-    startJoystickController2 = new QPushButton("Start");
+    startJoystickController = new QPushButton("Start");
     closeButton = new QPushButton("Close");
     
     steeringDial = new QDial();
@@ -33,11 +32,9 @@ BasicMotion::BasicMotion(int camId)
     QWidget *window = new QWidget();
     
     //Other objects
-    myThread1 = new workerThread();
-    myThread2 = new workerThread();
+    myThread = new workerThread();
     remoteConnectionController1 = new QProcess();
-    sendCommandsTimer1 = new QTimer();
-    sendCommandsTimer2 = new QTimer();
+    sendCommandsTimer = new QTimer();
     ///////////////////////////////////////
     
     
@@ -66,15 +63,14 @@ BasicMotion::BasicMotion(int camId)
     //Add widgets to Controllers layout
     controllerLayout->addWidget(wirelessControl, 0, 0);
     controllerLayout->addWidget(synchButtonControllers, 1, 0);
-    controllerLayout->addWidget(new QLabel("Controller 1"), 2, 0);
-    controllerLayout->addWidget(new QLabel("Robot ID"), 3, 0);
-    controllerLayout->addWidget(controller1RobotId, 3, 1);
-    controllerLayout->addWidget(startJoystickController1, 4, 0);
+    controllerLayout->addWidget(startJoystickController, 2, 0);
+    controllerLayout->addWidget(new QLabel("Controller 1"), 3, 0);
+    controllerLayout->addWidget(new QLabel("Robot ID"), 4, 0);
+    controllerLayout->addWidget(controller1RobotId, 4, 1);
     
     controllerLayout->addWidget(new QLabel("Controller 2"), 5, 0);
     controllerLayout->addWidget(new QLabel("Robot ID"), 6, 0);
     controllerLayout->addWidget(controller2RobotId, 6, 1);
-    controllerLayout->addWidget(startJoystickController2, 7, 0);
     /////////////////////////////////////
     
     
@@ -98,13 +94,14 @@ BasicMotion::BasicMotion(int camId)
     controller2RobotId->addItem("2");
     controller2RobotId->addItem("3");
     controller2RobotId->addItem("4");
-    controller2RobotId->setCurrentIndex(2);
+    controller2RobotId->setCurrentIndex(4);
         
     leftWheelVel->setEnabled(false);
     rightWheelVel->setEnabled(false);
     moveButton->setEnabled(false);
     stopButton->setEnabled(false);
     connectButton->setEnabled(true);
+    startJoystickController->setEnabled(false);
     
     pcControl->setChecked(false);
     wirelessControl->setChecked(true);
@@ -120,9 +117,8 @@ BasicMotion::BasicMotion(int camId)
     steeringController1 = 0;
     speedController2 = 0;
     steeringController2 = 0;
-    nJoystickConnected = 0;
-    joystick1 = -1;
-    joystick2 = -1;
+    nJoysticksConnected = 0;
+    controllerSynch = true;
     
     window->setLayout(mainLayout);
 
@@ -142,22 +138,24 @@ BasicMotion::BasicMotion(int camId)
     
     QObject::connect(synchButtonControllers, SIGNAL(clicked()), this, SLOT(SynchButton()));
     QObject::connect(remoteConnectionController1, SIGNAL(started()), this, SLOT(processStarted()));
-    QObject::connect(remoteConnectionController1,SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput1()));
+    QObject::connect(remoteConnectionController1, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processEnded(int, QProcess::ExitStatus)));
     
-    QObject::connect(startJoystickController1,SIGNAL(clicked()),this,SLOT(startJoystickSlot1()));
-    QObject::connect(startJoystickController2,SIGNAL(clicked()),this,SLOT(startJoystickSlot2()));
+    QObject::connect(remoteConnectionController1, SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput1()));
     
-    QObject::connect(myThread1,SIGNAL(updateJoystickAction(int, int*)),this, SLOT(updateControllerCommands(int, int*)));
-    QObject::connect(myThread2,SIGNAL(updateJoystickAction(int, int*)),this, SLOT(updateControllerCommands(int, int*)));
+    QObject::connect(startJoystickController,SIGNAL(clicked()),this,SLOT(startJoystickSlot()));
     
-    QObject::connect(sendCommandsTimer1,SIGNAL(timeout()),this, SLOT(sendControllerCommands1()));
-    QObject::connect(sendCommandsTimer2,SIGNAL(timeout()),this, SLOT(sendControllerCommands2()));
+    QObject::connect(myThread,SIGNAL(updateJoystickAction(int, int*)),this, SLOT(updateControllerCommands(int, int*)));
     
-    camThread = new cameraThread();
+    QObject::connect(sendCommandsTimer,SIGNAL(timeout()),this, SLOT(sendControllerCommands()));
+    
+    /*camThread = new cameraThread();
     camThread->setWorkingThread(true);
     camThread->setCamId(camId);
     camThread->start();
-    namedWindow("Real time video", WINDOW_NORMAL);    
+    namedWindow("Real time video", WINDOW_NORMAL);   
+    */
+    
+    myThread->start();
 }
 
 BasicMotion::~BasicMotion()
@@ -174,12 +172,12 @@ void BasicMotion::closeEvent(QCloseEvent* event)
 	serialConnection = false;
     }
     QWidget::closeEvent(event);
-    remoteConnectionController1->terminate();
-    myThread1->exit();
-    myThread2->exit();
-    camThread->setWorkingThread(false);
-    destroyWindow("Real time video");
-    camThread->exit();
+    if (controllerSynch)
+      remoteConnectionController1->kill();
+    myThread->exit();
+    //camThread->setWorkingThread(false);
+    //destroyWindow("Real time video");
+    //camThread->exit();
 }
 
 
@@ -217,7 +215,21 @@ QByteArray BasicMotion::buildAllRobotsStopPacket()
     return data;
 }
 
-void BasicMotion::sendRobotVel(int id, int rightVel, int leftVel)
+void BasicMotion::sendRobotVelMultipleRobots(int *id, int *rightVel, int *leftVel)
+{
+    for (int i = 0; i < 2; i++)
+    {
+      if(id[i] != -1)
+      {
+	data[(2*id[i])+1] = rightVel[i];
+	data[(2*id[i])+2] = leftVel[i];
+      }
+    }
+    if(serialPort->isOpen())
+      serialPort->write(data);
+}
+
+void BasicMotion::sendRobotVelOneRobot(int id, int rightVel, int leftVel)
 {
     data[(2*id)+1] = rightVel;
     data[(2*id)+2] = leftVel;
@@ -248,7 +260,7 @@ void BasicMotion::wheelMove()
        left = 127;
    else if(left < -127)
        left = -127;
-   sendRobotVel(PCrobotId->currentIndex(), right+0x7F, left+0x7F);
+   sendRobotVelOneRobot(PCrobotId->currentIndex(), right+0x7F, left+0x7F);
 }
 
 void BasicMotion::stop()
@@ -263,29 +275,40 @@ void BasicMotion::robotMove()
     float v = (float)(speedSlider->value())/100;
     float w = (float)(steeringDial->value())*(3*M_PI_4)/50;
     float *wheelVels = robotInverseKinematic(v, w);
-    sendRobotVel(PCrobotId->currentIndex(), (int)(wheelVels[0])+0x7F, (int)(wheelVels[1])+0x7F);
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(wheelVels[0])+0x7F, (int)(wheelVels[1])+0x7F);
 }
 
-void BasicMotion::robotMove2(int controller)
-{	
-    if (controller == joystick1)
+void BasicMotion::robotMove2()
+{
+    int leftVels[2], rightVels[2];
+    int activeId[2];
+    memset(activeId, -1, sizeof(int)*2);
+    nJoysticksConnected = myThread->getnActiveJoysticks();
+    if (nJoysticksConnected > 0)
     {
-	float v = (float)(speedController1)/32767;
-	float w = (float)(steeringController1)*(3*M_PI_4)/32767;
+	//float v = (float)(speedController1)/32767;
+	//float w = (float)(steeringController1)*(3*M_PI_4)/32767;
+	float v = (float)(speedController1)/70000;
+	float w = (float)(steeringController1)*(3*M_PI_4)/70000;
 	float *wheelVels = robotInverseKinematic(v, w);
-	sendRobotVel(controller1RobotId->currentIndex(), (int)(wheelVels[0])+0x7F, (int)(wheelVels[1])+0x7F);
+	leftVels[0] = (int)(wheelVels[1]) + 0x7F;
+	rightVels[0] = (int)(wheelVels[0]) + 0x7F;
+	activeId[0] = controller1RobotId->currentIndex();
     }
-    else if (controller == joystick2)
+    
+    if (nJoysticksConnected > 1)
     {
-	float v = (float)(speedController2)/32767;
-	float w = (float)(steeringController2)*(3*M_PI_4)/32767;
+	//float v = (float)(speedController2)/32767;
+	//float w = (float)(steeringController2)*(3*M_PI_4)/32767;
+	float v = (float)(speedController2)/60000;
+	float w = (float)(steeringController2)*(3*M_PI_4)/60000;
 	float *wheelVels = robotInverseKinematic(v, w);
-	sendRobotVel(controller2RobotId->currentIndex(), (int)(wheelVels[0])+0x7F, (int)(wheelVels[1])+0x7F);
+	leftVels[1] = (int)(wheelVels[1]) + 0x7F;
+	rightVels[1] = (int)(wheelVels[0]) + 0x7F;
+	activeId[1] = controller2RobotId->currentIndex();
     }
-    else 
-    {
-	cout << "Controller ID not valid in robotMove2()" << endl;
-    }
+    if (nJoysticksConnected > 0)
+      sendRobotVelMultipleRobots(activeId, rightVels, leftVels);
 }
 
 void BasicMotion::PCCheckBoxState(int state)
@@ -358,21 +381,42 @@ void BasicMotion::clickedConnectButton()
 	serialPort->write(buildAllRobotsStopPacket());
         serialPort->close();
 	connectButton->setText("Serial Connection");
+	serialConnection = false;
       } 
     }
 }
 
 void BasicMotion::SynchButton()
 {
-    remoteConnectionController1->start("ds4drv");
+    if(synchButtonControllers->text() == "Synch")
+      remoteConnectionController1->start("ds4drv");
+    else if (synchButtonControllers->text() == "Stop synch")
+      remoteConnectionController1->kill();
+      
 }
 
 void BasicMotion::processStarted()
 {
     cout << "Process ds4drv Started" << endl;
-    synchButtonControllers->setEnabled(false);
+    synchButtonControllers->setText("Stop synch");
+    controllerSynch = true;
+    startJoystickController->setEnabled(true);
 }
 
+void BasicMotion::processEnded(int exitCode, QProcess::ExitStatus ExitStatus)
+{
+    cout << "Process ds4drv ended" << endl;
+    synchButtonControllers->setText("Synch");
+    controllerSynch = false;
+    if (startJoystickController->text() == "Stop")
+    {
+	myThread->setStarted(false);
+	startJoystickController->setText("Start");
+	sendCommandsTimer->stop();
+	
+    }
+    startJoystickController->setEnabled(false);
+}
 
 void BasicMotion::readyReadStandardOutput1()
 {
@@ -380,71 +424,40 @@ void BasicMotion::readyReadStandardOutput1()
     cout << mOutputString1.toStdString() << endl;
 }
 
-void BasicMotion::startJoystickSlot1()
+void BasicMotion::startJoystickSlot()
 {
-    if (nJoystickConnected == 0  && joystick1 == -1)
+    if (serialConnection)
     {
-	joystick1 = 0;
-	nJoystickConnected++;
+      if(startJoystickController->text() == "Start")
+      {
+	  myThread->setStarted(true);
+	  //myThread->start();
+	  startJoystickController->setText("Stop");
+	  sendCommandsTimer->start(sendCommandsTime);
+      }
+      else if (startJoystickController->text() == "Stop")
+      {
+	  myThread->setStarted(false);
+	  //myThread->exit();
+	  startJoystickController->setText("Start");
+	  sendCommandsTimer->stop();
+      }
     }
-    else if (nJoystickConnected == 1 && joystick1 == -1)
+    else
     {
-	joystick1 = 1;
-	nJoystickConnected++;
-    }
-    
-    if(startJoystickController1->text() == "Start")
-    {
-	myThread1->start();
-	startJoystickController1->setText("Stop");
-	sendCommandsTimer1->start(sendCommandsTime);
-    }
-    else if (startJoystickController1->text() == "Stop")
-    {
-	myThread1->exit();
-	startJoystickController1->setText("Start");
-	myThread1->setStarted(false);
-	sendCommandsTimer1->stop();
+	
     }
 }
 
-void BasicMotion::startJoystickSlot2()
-{
-  
-    if (nJoystickConnected == 0 && joystick2 == -1)
-    {
-	joystick2 = 0;
-	nJoystickConnected++;
-    }
-    else if (nJoystickConnected == 1 && joystick2 == -1)
-    {
-	joystick2 = 1;
-	nJoystickConnected++;
-    }
-    
-    if(startJoystickController2->text() == "Start")
-    {
-	myThread2->start();
-	startJoystickController2->setText("Stop");
-	sendCommandsTimer2->start(sendCommandsTime);
-    }
-    else if (startJoystickController2->text() == "Stop")
-    {
-	myThread2->exit();
-	startJoystickController2->setText("Start");
-	myThread2->setStarted(false);
-	sendCommandsTimer2->stop();
-    }
-}
 
 void BasicMotion::updateControllerCommands(int controllerId, int* controllerAxes)
 {
-    if (controllerId == joystick1)
+    if (controllerId == 0)
     {
 	speedController1 = (int)(-1*controllerAxes[5]);
 	steeringController1 = (int)(-1*controllerAxes[0]);
     }
-    else if (controllerId == joystick2)
+    else if (controllerId == 1)
     {
 	speedController2 = (int)(-1*controllerAxes[5]);
 	steeringController2 = (int)(-1*controllerAxes[0]);
@@ -455,14 +468,10 @@ void BasicMotion::updateControllerCommands(int controllerId, int* controllerAxes
     }    
 }
 
-void BasicMotion::sendControllerCommands1()
+void BasicMotion::sendControllerCommands()
 {
-    robotMove2(joystick1);
-}
-
-void BasicMotion::sendControllerCommands2()
-{
-    robotMove2(joystick2);
+    //cout << "nJ = " << nJoysticksConnected << endl;
+    robotMove2();
 }
 
 void BasicMotion::clickedClosedButton()
@@ -473,10 +482,10 @@ void BasicMotion::clickedClosedButton()
         serialPort->close();
 	serialConnection = false;
     }
-    remoteConnectionController1->terminate();
-    myThread1->exit();
-    myThread2->exit();
-    camThread->setWorkingThread(false);
-    destroyWindow("Real time video");
-    camThread->exit();
+    if(controllerSynch)
+      remoteConnectionController1->kill();
+    myThread->exit();
+    //camThread->setWorkingThread(false);
+    //destroyWindow("Real time video");
+    //camThread->exit();
 }

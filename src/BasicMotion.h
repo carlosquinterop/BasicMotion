@@ -38,47 +38,48 @@ public:
     QPushButton *stopButton;
     QPushButton *connectButton;
     QPushButton *synchButtonControllers;
-    QPushButton *startJoystickController1, *startJoystickController2;
+    QPushButton *startJoystickController;
     QPushButton *closeButton;
     QDial *steeringDial;
     QSlider *speedSlider;
     QCheckBox *pcControl, *wirelessControl;
     QProcess *remoteConnectionController1;
     virtual void closeEvent ( QCloseEvent * event );
+    int openSerialPort(QString port);
+    QByteArray buildAllRobotsStopPacket();
+    void sendRobotVelMultipleRobots(int *id, int *rightVel, int *leftVel);
+    void sendRobotVelOneRobot(int id, int rightVel, int leftVel);
+    float* robotInverseKinematic(float v, float w);
     
 private:
     QSerialPort *serialPort;
-    int openSerialPort(QString port);
     QByteArray data;
-    QByteArray buildAllRobotsStopPacket();
-    void sendRobotVel(int id, int rightVel, int leftVel);
-    float* robotInverseKinematic(float v, float w);
-    workerThread *myThread1, *myThread2;
+    workerThread *myThread;
     QString mOutputString1, mOutputString2;
     int speedController1, steeringController1, speedController2, steeringController2;
     bool serialConnection;
-    QTimer *sendCommandsTimer1, *sendCommandsTimer2;
-    JsController *joystick[2];
-    int nJoystickConnected, joystick1, joystick2;
+    QTimer *sendCommandsTimer;
+    QTimer *showCommandsTimer;
     cameraThread *camThread;
+    int nJoysticksConnected;
+    bool controllerSynch;
     
 public slots:
     void wheelMove();
     void stop();
     void robotMove();
-    void robotMove2(int controller);
+    void robotMove2();
     void PCCheckBoxState(int state);
     void WirelessCheckBoxState(int state);
     void clickedConnectButton();
     void SynchButton();
     void processStarted();
     void readyReadStandardOutput1();
-    void startJoystickSlot1();
-    void startJoystickSlot2();
+    void startJoystickSlot();
     void updateControllerCommands(int controllerId, int* controllerAxes);
-    void sendControllerCommands1();
-    void sendControllerCommands2();
+    void sendControllerCommands();
     void clickedClosedButton();
+    void processEnded(int exitCode, QProcess::ExitStatus existStatus);
 };
 
 #endif // BasicMotion_H

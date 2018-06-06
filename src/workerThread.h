@@ -34,9 +34,12 @@ class workerThread : public QThread
 public:
     workerThread();
     void setStarted(bool aStarted);
+    bool isActive(int joystickIndex);
+    int getnActiveJoysticks();
 private:
     JsController *joystick[2];
     bool started;
+    int nActiveJoysticks;
 signals:
     void updateJoystickAction(int i, int* axes);
 };

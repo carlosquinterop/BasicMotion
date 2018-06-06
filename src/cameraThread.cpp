@@ -41,7 +41,7 @@ void cameraThread::run()
     {
 	*stream1 >> capturedImage;
 	imshow("Real time video", capturedImage);
-	resizeWindow("Real time video", 1500, 1000);
+	resizeWindow("Real time video", 600, 500);
     }
     delete stream1;
 }
