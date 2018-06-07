@@ -470,6 +470,17 @@ void BasicMotion::updateControllerCommands(int controllerId, int* controllerAxes
 void BasicMotion::sendControllerCommands()
 {
     robotMove2();
+    if (myThread->getnActiveJoysticks() == 1)
+    {
+	cout << "\033[2J\033[1;1H" << endl;
+	cout << "1: (" << speedController1 << ", " << steeringController1 << ")" << endl;
+    }
+    else if (myThread->getnActiveJoysticks() == 2)
+    {
+	cout << "\033[2J\033[1;1H" << endl;
+	cout << "1: (" << speedController1 << ", " << steeringController1 << ")" << endl;
+	cout << "2: (" << speedController2 << ", " << steeringController2 << ")" << endl;
+    }
 }
 
 void BasicMotion::showControllerCommands()
