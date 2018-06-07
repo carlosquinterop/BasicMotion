@@ -1,8 +1,0 @@
--I/usr/local/include
--I/usr/local/include/opencv
--I/home/jess-linux/Documents/Projects/BasicMotion
--I/home/jess-linux/Documents/Projects/BasicMotion
--I/home/jess-linux/Documents/Projects/BasicMotion/build
--o
-/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp
-/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.h
