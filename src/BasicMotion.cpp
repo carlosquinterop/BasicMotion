@@ -35,6 +35,7 @@ BasicMotion::BasicMotion(int camId)
     myThread = new workerThread();
     remoteConnectionController1 = new QProcess();
     sendCommandsTimer = new QTimer();
+    showCommandsTimer = new QTimer();
     ///////////////////////////////////////
     
     
@@ -118,7 +119,7 @@ BasicMotion::BasicMotion(int camId)
     speedController2 = 0;
     steeringController2 = 0;
     nJoysticksConnected = 0;
-    controllerSynch = true;
+    controllerSynch = false;
     
     window->setLayout(mainLayout);
 
@@ -135,18 +136,14 @@ BasicMotion::BasicMotion(int camId)
     QObject::connect(wirelessControl, SIGNAL(stateChanged(int)), this, SLOT(WirelessCheckBoxState(int)));
     QObject::connect(connectButton, SIGNAL(clicked()), this, SLOT(clickedConnectButton()));
     QObject::connect(closeButton, SIGNAL(clicked()), this, SLOT(clickedClosedButton()));
-    
     QObject::connect(synchButtonControllers, SIGNAL(clicked()), this, SLOT(SynchButton()));
     QObject::connect(remoteConnectionController1, SIGNAL(started()), this, SLOT(processStarted()));
     QObject::connect(remoteConnectionController1, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processEnded(int, QProcess::ExitStatus)));
-    
     QObject::connect(remoteConnectionController1, SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput1()));
-    
     QObject::connect(startJoystickController,SIGNAL(clicked()),this,SLOT(startJoystickSlot()));
-    
     QObject::connect(myThread,SIGNAL(updateJoystickAction(int, int*)),this, SLOT(updateControllerCommands(int, int*)));
-    
     QObject::connect(sendCommandsTimer,SIGNAL(timeout()),this, SLOT(sendControllerCommands()));
+    QObject::connect(showCommandsTimer,SIGNAL(timeout()),this, SLOT(showControllerCommands()));
     
     /*camThread = new cameraThread();
     camThread->setWorkingThread(true);
@@ -171,10 +168,10 @@ void BasicMotion::closeEvent(QCloseEvent* event)
         serialPort->close();
 	serialConnection = false;
     }
-    QWidget::closeEvent(event);
     if (controllerSynch)
       remoteConnectionController1->kill();
     myThread->exit();
+    QWidget::closeEvent(event);
     //camThread->setWorkingThread(false);
     //destroyWindow("Real time video");
     //camThread->exit();
@@ -286,8 +283,6 @@ void BasicMotion::robotMove2()
     nJoysticksConnected = myThread->getnActiveJoysticks();
     if (nJoysticksConnected > 0)
     {
-	//float v = (float)(speedController1)/32767;
-	//float w = (float)(steeringController1)*(3*M_PI_4)/32767;
 	float v = (float)(speedController1)/70000;
 	float w = (float)(steeringController1)*(3*M_PI_4)/70000;
 	float *wheelVels = robotInverseKinematic(v, w);
@@ -298,8 +293,6 @@ void BasicMotion::robotMove2()
     
     if (nJoysticksConnected > 1)
     {
-	//float v = (float)(speedController2)/32767;
-	//float w = (float)(steeringController2)*(3*M_PI_4)/32767;
 	float v = (float)(speedController2)/60000;
 	float w = (float)(steeringController2)*(3*M_PI_4)/60000;
 	float *wheelVels = robotInverseKinematic(v, w);
@@ -445,7 +438,20 @@ void BasicMotion::startJoystickSlot()
     }
     else
     {
-	
+	if(startJoystickController->text() == "Start")
+	{
+	    myThread->setStarted(true);
+	    //myThread->start();
+	    startJoystickController->setText("Stop");
+	    showCommandsTimer->start(showCommandsTime);
+	}
+	else if (startJoystickController->text() == "Stop")
+	{
+	    myThread->setStarted(false);
+	    //myThread->exit();
+	    startJoystickController->setText("Start");
+	    showCommandsTimer->stop();
+	}
     }
 }
 
@@ -470,12 +476,19 @@ void BasicMotion::updateControllerCommands(int controllerId, int* controllerAxes
 
 void BasicMotion::sendControllerCommands()
 {
-    //cout << "nJ = " << nJoysticksConnected << endl;
     robotMove2();
 }
 
+void BasicMotion::showControllerCommands()
+{
+    cout << "(" << speedController1 << ", " << steeringController1 << ")" << endl;
+    cout << "(" << speedController2 << ", " << steeringController2 << ")" << endl;
+}
+
+
 void BasicMotion::clickedClosedButton()
 {
+    myThread->exit();
     if(serialPort->isOpen())
     {
 	serialPort->write(buildAllRobotsStopPacket());
@@ -484,7 +497,6 @@ void BasicMotion::clickedClosedButton()
     }
     if(controllerSynch)
       remoteConnectionController1->kill();
-    myThread->exit();
     //camThread->setWorkingThread(false);
     //destroyWindow("Real time video");
     //camThread->exit();

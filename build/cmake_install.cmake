@@ -1,4 +1,4 @@
-# Install script for directory: /home/jess-linux/Documents/Projects/BasicMotion
+# Install script for directory: /home/carlosq/projects/BasicMotion
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/jess-linux/Documents/Projects/BasicMotion/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/carlosq/projects/BasicMotion/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -20,6 +20,7 @@
 #include "cameraThread.h"
 
 #define sendCommandsTime 50
+#define showCommandsTime 500
 
 
 class BasicMotion : public QMainWindow
@@ -78,6 +79,7 @@ public slots:
     void startJoystickSlot();
     void updateControllerCommands(int controllerId, int* controllerAxes);
     void sendControllerCommands();
+    void showControllerCommands();
     void clickedClosedButton();
     void processEnded(int exitCode, QProcess::ExitStatus existStatus);
 };

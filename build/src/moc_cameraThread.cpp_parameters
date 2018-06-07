@@ -1,8 +1,8 @@
 -I/usr/local/include
 -I/usr/local/include/opencv
--I/home/jess-linux/Documents/Projects/BasicMotion
--I/home/jess-linux/Documents/Projects/BasicMotion
--I/home/jess-linux/Documents/Projects/BasicMotion/build
+-I/home/carlosq/projects/BasicMotion
+-I/home/carlosq/projects/BasicMotion
+-I/home/carlosq/projects/BasicMotion/build
 -o
-/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp
-/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.h
+/home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp
+/home/carlosq/projects/BasicMotion/src/cameraThread.h

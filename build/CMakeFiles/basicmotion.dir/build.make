@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jess-linux/Documents/Projects/BasicMotion
+CMAKE_SOURCE_DIR = /home/carlosq/projects/BasicMotion
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jess-linux/Documents/Projects/BasicMotion/build
+CMAKE_BINARY_DIR = /home/carlosq/projects/BasicMotion/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/basicmotion.dir/depend.make
@@ -58,33 +58,33 @@ include CMakeFiles/basicmotion.dir/progress.make
 include CMakeFiles/basicmotion.dir/flags.make
 
 src/moc_BasicMotion.cpp: ../src/BasicMotion.h
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating src/moc_BasicMotion.cpp"
-	cd /home/jess-linux/Documents/Projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp_parameters
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating src/moc_BasicMotion.cpp"
+	cd /home/carlosq/projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/carlosq/projects/BasicMotion/build/src/moc_BasicMotion.cpp_parameters
 
 src/moc_workerThread.cpp: ../src/workerThread.h
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating src/moc_workerThread.cpp"
-	cd /home/jess-linux/Documents/Projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp_parameters
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating src/moc_workerThread.cpp"
+	cd /home/carlosq/projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/carlosq/projects/BasicMotion/build/src/moc_workerThread.cpp_parameters
 
 src/moc_jscontroller.cpp: ../src/jscontroller.h
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating src/moc_jscontroller.cpp"
-	cd /home/jess-linux/Documents/Projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_jscontroller.cpp_parameters
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating src/moc_jscontroller.cpp"
+	cd /home/carlosq/projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/carlosq/projects/BasicMotion/build/src/moc_jscontroller.cpp_parameters
 
 src/moc_cameraThread.cpp: ../src/cameraThread.h
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating src/moc_cameraThread.cpp"
-	cd /home/jess-linux/Documents/Projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp_parameters
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating src/moc_cameraThread.cpp"
+	cd /home/carlosq/projects/BasicMotion/build/src && /usr/lib/x86_64-linux-gnu/qt5/bin/moc @/home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp_parameters
 
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: src/moc_BasicMotion.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o -c /home/carlosq/projects/BasicMotion/build/src/moc_BasicMotion.cpp
 
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp > CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/build/src/moc_BasicMotion.cpp > CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.i
 
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp -o CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/build/src/moc_BasicMotion.cpp -o CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.s
 
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o.requires:
 
@@ -99,16 +99,16 @@ CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o: src/moc_workerThread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o -c /home/carlosq/projects/BasicMotion/build/src/moc_workerThread.cpp
 
 CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp > CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/build/src/moc_workerThread.cpp > CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.i
 
 CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp -o CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/build/src/moc_workerThread.cpp -o CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.s
 
 CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o.requires:
 
@@ -123,16 +123,16 @@ CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o.provides.build: CMakeFiles
 
 CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o: src/moc_jscontroller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_jscontroller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o -c /home/carlosq/projects/BasicMotion/build/src/moc_jscontroller.cpp
 
 CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_jscontroller.cpp > CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/build/src/moc_jscontroller.cpp > CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.i
 
 CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_jscontroller.cpp -o CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/build/src/moc_jscontroller.cpp -o CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.s
 
 CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o.requires:
 
@@ -147,16 +147,16 @@ CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o.provides.build: CMakeFiles
 
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: src/moc_cameraThread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o -c /home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp
 
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp > CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp > CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.i
 
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp -o CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp -o CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.s
 
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o.requires:
 
@@ -171,16 +171,16 @@ CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o.provides.build: CMakeFiles
 
 CMakeFiles/basicmotion.dir/src/main.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/basicmotion.dir/src/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/main.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/basicmotion.dir/src/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/main.cpp.o -c /home/carlosq/projects/BasicMotion/src/main.cpp
 
 CMakeFiles/basicmotion.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/src/main.cpp > CMakeFiles/basicmotion.dir/src/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/src/main.cpp > CMakeFiles/basicmotion.dir/src/main.cpp.i
 
 CMakeFiles/basicmotion.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/src/main.cpp -o CMakeFiles/basicmotion.dir/src/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/src/main.cpp -o CMakeFiles/basicmotion.dir/src/main.cpp.s
 
 CMakeFiles/basicmotion.dir/src/main.cpp.o.requires:
 
@@ -195,16 +195,16 @@ CMakeFiles/basicmotion.dir/src/main.cpp.o.provides.build: CMakeFiles/basicmotion
 
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: ../src/BasicMotion.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o -c /home/carlosq/projects/BasicMotion/src/BasicMotion.cpp
 
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.cpp > CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/src/BasicMotion.cpp > CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.i
 
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.cpp -o CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/src/BasicMotion.cpp -o CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.s
 
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o.requires:
 
@@ -219,16 +219,16 @@ CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o.provides.build: CMakeFiles/basi
 
 CMakeFiles/basicmotion.dir/src/workerThread.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/workerThread.cpp.o: ../src/workerThread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/basicmotion.dir/src/workerThread.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/workerThread.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/basicmotion.dir/src/workerThread.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/workerThread.cpp.o -c /home/carlosq/projects/BasicMotion/src/workerThread.cpp
 
 CMakeFiles/basicmotion.dir/src/workerThread.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/workerThread.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.cpp > CMakeFiles/basicmotion.dir/src/workerThread.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/src/workerThread.cpp > CMakeFiles/basicmotion.dir/src/workerThread.cpp.i
 
 CMakeFiles/basicmotion.dir/src/workerThread.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/workerThread.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.cpp -o CMakeFiles/basicmotion.dir/src/workerThread.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/src/workerThread.cpp -o CMakeFiles/basicmotion.dir/src/workerThread.cpp.s
 
 CMakeFiles/basicmotion.dir/src/workerThread.cpp.o.requires:
 
@@ -243,16 +243,16 @@ CMakeFiles/basicmotion.dir/src/workerThread.cpp.o.provides.build: CMakeFiles/bas
 
 CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o: ../src/jscontroller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o -c /home/carlosq/projects/BasicMotion/src/jscontroller.cpp
 
 CMakeFiles/basicmotion.dir/src/jscontroller.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/jscontroller.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.cpp > CMakeFiles/basicmotion.dir/src/jscontroller.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/src/jscontroller.cpp > CMakeFiles/basicmotion.dir/src/jscontroller.cpp.i
 
 CMakeFiles/basicmotion.dir/src/jscontroller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/jscontroller.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.cpp -o CMakeFiles/basicmotion.dir/src/jscontroller.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/src/jscontroller.cpp -o CMakeFiles/basicmotion.dir/src/jscontroller.cpp.s
 
 CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o.requires:
 
@@ -267,16 +267,16 @@ CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o.provides.build: CMakeFiles/bas
 
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: CMakeFiles/basicmotion.dir/flags.make
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: ../src/cameraThread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o -c /home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o -c /home/carlosq/projects/BasicMotion/src/cameraThread.cpp
 
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/basicmotion.dir/src/cameraThread.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.cpp > CMakeFiles/basicmotion.dir/src/cameraThread.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/carlosq/projects/BasicMotion/src/cameraThread.cpp > CMakeFiles/basicmotion.dir/src/cameraThread.cpp.i
 
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/basicmotion.dir/src/cameraThread.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.cpp -o CMakeFiles/basicmotion.dir/src/cameraThread.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/carlosq/projects/BasicMotion/src/cameraThread.cpp -o CMakeFiles/basicmotion.dir/src/cameraThread.cpp.s
 
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o.requires:
 
@@ -318,25 +318,25 @@ basicmotion_EXTERNAL_OBJECTS =
 ../bin/basicmotion: /usr/lib/x86_64-linux-gnu/libQt5SerialPort.so.5.5.1
 ../bin/basicmotion: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.5.1
 ../bin/basicmotion: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.5.1
-../bin/basicmotion: /usr/local/lib/libopencv_dnn.so.4.0.0
-../bin/basicmotion: /usr/local/lib/libopencv_ml.so.4.0.0
-../bin/basicmotion: /usr/local/lib/libopencv_objdetect.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_stitching.so.4.0.0
+../bin/basicmotion: /usr/local/lib/libopencv_ml.so.4.0.0
+../bin/basicmotion: /usr/local/lib/libopencv_dnn.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_superres.so.4.0.0
-../bin/basicmotion: /usr/local/lib/libopencv_shape.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_videostab.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_photo.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_calib3d.so.4.0.0
-../bin/basicmotion: /usr/local/lib/libopencv_video.so.4.0.0
+../bin/basicmotion: /usr/local/lib/libopencv_objdetect.so.4.0.0
+../bin/basicmotion: /usr/local/lib/libopencv_shape.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_features2d.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_flann.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_highgui.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_videoio.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_imgcodecs.so.4.0.0
+../bin/basicmotion: /usr/local/lib/libopencv_video.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_imgproc.so.4.0.0
 ../bin/basicmotion: /usr/local/lib/libopencv_core.so.4.0.0
 ../bin/basicmotion: CMakeFiles/basicmotion.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable ../bin/basicmotion"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable ../bin/basicmotion"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/basicmotion.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -364,6 +364,6 @@ CMakeFiles/basicmotion.dir/depend: src/moc_BasicMotion.cpp
 CMakeFiles/basicmotion.dir/depend: src/moc_workerThread.cpp
 CMakeFiles/basicmotion.dir/depend: src/moc_jscontroller.cpp
 CMakeFiles/basicmotion.dir/depend: src/moc_cameraThread.cpp
-	cd /home/jess-linux/Documents/Projects/BasicMotion/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jess-linux/Documents/Projects/BasicMotion /home/jess-linux/Documents/Projects/BasicMotion /home/jess-linux/Documents/Projects/BasicMotion/build /home/jess-linux/Documents/Projects/BasicMotion/build /home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/carlosq/projects/BasicMotion/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/carlosq/projects/BasicMotion /home/carlosq/projects/BasicMotion /home/carlosq/projects/BasicMotion/build /home/carlosq/projects/BasicMotion/build /home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/basicmotion.dir/depend
 

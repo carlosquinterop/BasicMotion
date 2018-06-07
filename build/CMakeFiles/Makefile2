@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jess-linux/Documents/Projects/BasicMotion
+CMAKE_SOURCE_DIR = /home/carlosq/projects/BasicMotion
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jess-linux/Documents/Projects/BasicMotion/build
+CMAKE_BINARY_DIR = /home/carlosq/projects/BasicMotion/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/basicmotion.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/jess-linux/Documents/Projects/BasicMotion/build
 CMakeFiles/basicmotion.dir/all:
 	$(MAKE) -f CMakeFiles/basicmotion.dir/build.make CMakeFiles/basicmotion.dir/depend
 	$(MAKE) -f CMakeFiles/basicmotion.dir/build.make CMakeFiles/basicmotion.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Built target basicmotion"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/carlosq/projects/BasicMotion/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Built target basicmotion"
 .PHONY : CMakeFiles/basicmotion.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/basicmotion.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/basicmotion.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/carlosq/projects/BasicMotion/build/CMakeFiles 14
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/basicmotion.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/carlosq/projects/BasicMotion/build/CMakeFiles 0
 .PHONY : CMakeFiles/basicmotion.dir/rule
 
 # Convenience name for target.

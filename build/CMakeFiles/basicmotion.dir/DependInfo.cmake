@@ -4,15 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/src/main.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/main.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_jscontroller.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o"
-  "/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.cpp" "/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/workerThread.cpp.o"
+  "/home/carlosq/projects/BasicMotion/src/BasicMotion.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o"
+  "/home/carlosq/projects/BasicMotion/src/cameraThread.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o"
+  "/home/carlosq/projects/BasicMotion/src/jscontroller.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/jscontroller.cpp.o"
+  "/home/carlosq/projects/BasicMotion/src/main.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/main.cpp.o"
+  "/home/carlosq/projects/BasicMotion/build/src/moc_BasicMotion.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o"
+  "/home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o"
+  "/home/carlosq/projects/BasicMotion/build/src/moc_jscontroller.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_jscontroller.cpp.o"
+  "/home/carlosq/projects/BasicMotion/build/src/moc_workerThread.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/moc_workerThread.cpp.o"
+  "/home/carlosq/projects/BasicMotion/src/workerThread.cpp" "/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir/src/workerThread.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

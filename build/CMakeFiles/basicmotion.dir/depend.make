@@ -168,7 +168,6 @@ CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/cor
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/affine.hpp
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
-CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/check.hpp
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
 CMakeFiles/basicmotion.dir/src/BasicMotion.cpp.o: /usr/local/include/opencv2/core/cuda_types.hpp
@@ -341,7 +340,6 @@ CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/co
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/affine.hpp
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
-CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/check.hpp
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
 CMakeFiles/basicmotion.dir/src/cameraThread.cpp.o: /usr/local/include/opencv2/core/cuda_types.hpp
@@ -732,7 +730,6 @@ CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core.hpp
 CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/affine.hpp
 CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
-CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/check.hpp
 CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
 CMakeFiles/basicmotion.dir/src/main.cpp.o: /usr/local/include/opencv2/core/cuda_types.hpp
@@ -1012,7 +1009,6 @@ CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/affine.hpp
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
-CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/check.hpp
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
 CMakeFiles/basicmotion.dir/src/moc_BasicMotion.cpp.o: /usr/local/include/opencv2/core/cuda_types.hpp
@@ -1185,7 +1181,6 @@ CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/affine.hpp
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/base.hpp
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/bufferpool.hpp
-CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/check.hpp
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/cuda.hpp
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/cuda.inl.hpp
 CMakeFiles/basicmotion.dir/src/moc_cameraThread.cpp.o: /usr/local/include/opencv2/core/cuda_types.hpp

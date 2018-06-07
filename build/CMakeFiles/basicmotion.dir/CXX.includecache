@@ -6,37 +6,37 @@
 
 #IncludeRegexTransform: 
 
-/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp
+/home/carlosq/projects/BasicMotion/build/src/moc_BasicMotion.cpp
 ../../src/BasicMotion.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.h
+/home/carlosq/projects/BasicMotion/src/BasicMotion.h
 QtCore/qbytearray.h
 -
 QtCore/qmetatype.h
 -
 
-/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_cameraThread.cpp
+/home/carlosq/projects/BasicMotion/build/src/moc_cameraThread.cpp
 ../../src/cameraThread.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.h
+/home/carlosq/projects/BasicMotion/src/cameraThread.h
 QtCore/qbytearray.h
 -
 QtCore/qmetatype.h
 -
 
-/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_jscontroller.cpp
+/home/carlosq/projects/BasicMotion/build/src/moc_jscontroller.cpp
 
-/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_workerThread.cpp
+/home/carlosq/projects/BasicMotion/build/src/moc_workerThread.cpp
 ../../src/workerThread.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.h
+/home/carlosq/projects/BasicMotion/src/workerThread.h
 QtCore/qbytearray.h
 -
 QtCore/qmetatype.h
 -
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.cpp
+/home/carlosq/projects/BasicMotion/src/BasicMotion.cpp
 BasicMotion.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.h
+/home/carlosq/projects/BasicMotion/src/BasicMotion.h
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.h
+/home/carlosq/projects/BasicMotion/src/BasicMotion.h
 QMainWindow
 -
 QCheckBox
@@ -62,21 +62,21 @@ QtSerialPort/QSerialPort
 QtWidgets/QMessageBox
 -
 workerThread.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.h
+/home/carlosq/projects/BasicMotion/src/workerThread.h
 QTextEdit
 -
 QTimer
 -
 jscontroller.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.h
+/home/carlosq/projects/BasicMotion/src/jscontroller.h
 cameraThread.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.h
+/home/carlosq/projects/BasicMotion/src/cameraThread.h
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.cpp
+/home/carlosq/projects/BasicMotion/src/cameraThread.cpp
 cameraThread.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.h
+/home/carlosq/projects/BasicMotion/src/cameraThread.h
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/cameraThread.h
+/home/carlosq/projects/BasicMotion/src/cameraThread.h
 qt5/QtCore/QObject
 -
 opencv2/opencv.hpp
@@ -86,11 +86,11 @@ QThread
 iostream
 -
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.cpp
+/home/carlosq/projects/BasicMotion/src/jscontroller.cpp
 jscontroller.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.h
+/home/carlosq/projects/BasicMotion/src/jscontroller.h
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.h
+/home/carlosq/projects/BasicMotion/src/jscontroller.h
 string
 -
 stdio.h
@@ -100,23 +100,23 @@ fcntl.h
 unistd.h
 -
 linux/joystick.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/linux/joystick.h
+/home/carlosq/projects/BasicMotion/src/linux/joystick.h
 sys/ioctl.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/sys/ioctl.h
+/home/carlosq/projects/BasicMotion/src/sys/ioctl.h
 QWidget
 -
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/main.cpp
+/home/carlosq/projects/BasicMotion/src/main.cpp
 QtWidgets/QApplication
 -
 BasicMotion.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.h
+/home/carlosq/projects/BasicMotion/src/BasicMotion.h
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.cpp
+/home/carlosq/projects/BasicMotion/src/workerThread.cpp
 workerThread.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.h
+/home/carlosq/projects/BasicMotion/src/workerThread.h
 
-/home/jess-linux/Documents/Projects/BasicMotion/src/workerThread.h
+/home/carlosq/projects/BasicMotion/src/workerThread.h
 qt5/QtCore/QObject
 -
 QThread
@@ -126,7 +126,7 @@ iostream
 QProcess
 -
 jscontroller.h
-/home/jess-linux/Documents/Projects/BasicMotion/src/jscontroller.h
+/home/carlosq/projects/BasicMotion/src/jscontroller.h
 
 /usr/include/x86_64-linux-gnu/qt5/QtCore/QProcess
 qprocess.h
@@ -1591,14 +1591,8 @@ opencv2/core/neon_utils.hpp
 /usr/local/include/opencv2/core/opencv2/core/neon_utils.hpp
 opencv2/core/vsx_utils.hpp
 /usr/local/include/opencv2/core/opencv2/core/vsx_utils.hpp
-opencv2/core/check.hpp
-/usr/local/include/opencv2/core/opencv2/core/check.hpp
 
 /usr/local/include/opencv2/core/bufferpool.hpp
-
-/usr/local/include/opencv2/core/check.hpp
-opencv2/core/base.hpp
--
 
 /usr/local/include/opencv2/core/cuda.hpp
 opencv2/core.hpp
@@ -2503,8 +2497,6 @@ opencv2/stitching/detail/camera.hpp
 /usr/local/include/opencv2/stitching/detail/blenders.hpp
 opencv2/core.hpp
 /usr/local/include/opencv2/stitching/detail/opencv2/core.hpp
-opencv2/core/cuda.hpp
-/usr/local/include/opencv2/stitching/detail/opencv2/core/cuda.hpp
 
 /usr/local/include/opencv2/stitching/detail/camera.hpp
 opencv2/core.hpp
