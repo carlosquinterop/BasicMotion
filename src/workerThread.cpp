@@ -63,6 +63,11 @@ void workerThread::setStarted(bool aStarted)
     started = aStarted;
 }
 
+bool workerThread::getStarted()
+{
+    return started;
+}
+
 bool workerThread::isActive(int joystickIndex)
 {
     //cout << "joystick[" << joystickIndex << "] = " << endl;

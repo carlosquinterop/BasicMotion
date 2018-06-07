@@ -34,6 +34,7 @@ class workerThread : public QThread
 public:
     workerThread();
     void setStarted(bool aStarted);
+    bool getStarted();
     bool isActive(int joystickIndex);
     int getnActiveJoysticks();
 private:
