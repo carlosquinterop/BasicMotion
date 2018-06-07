@@ -1,3 +1,0 @@
-/home/carlosq/projects/BasicMotion/build/CMakeFiles/edit_cache.dir
-/home/carlosq/projects/BasicMotion/build/CMakeFiles/rebuild_cache.dir
-/home/carlosq/projects/BasicMotion/build/CMakeFiles/basicmotion.dir
