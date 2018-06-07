@@ -17,10 +17,6 @@ find_package(Qt5Widgets)
 include_directories(${Qt5Widgets_INCLUDES})
 list(APPEND libs ${Qt5Widgets_LIBRARIES})
 
-#find_package(Qt5Bluetooth)
-#include_directories(${Qt5Bluetooth_INCLUDES})
-#list(APPEND libs ${Qt5Bluetooth_LIBRARIES})
-
 find_package(Qt5SerialPort)
 include_directories(${Qt5SerialPort_INCLUDES})
 list(APPEND libs ${Qt5SerialPort_LIBRARIES})
@@ -34,10 +30,6 @@ find_package(Qt5Core)
 include_directories(${Qt5Core_INCLUDES})
 list(APPEND libs ${Qt5Core_LIBRARIES})
 
-find_package( OpenCV REQUIRED )
-include_directories(${OpenCV_INCLUDE_DIRS})
-list(APPEND libs ${OpenCV_LIBS})
-
 include_directories(${PROJECT_SOURCE_DIR})
 
 set(SOURCES
@@ -45,15 +37,12 @@ set(SOURCES
     src/BasicMotion.cpp
     src/workerThread.cpp
     src/jscontroller.cpp
-    src/cameraThread.cpp
 )
 
 set(HEADERS     
     src/BasicMotion.h
     src/workerThread.h
     src/jscontroller.h
-    src/jscontroller.h
-    src/cameraThread.h
 )
 
 qt5_wrap_cpp(HEADERS ${HEADERS})

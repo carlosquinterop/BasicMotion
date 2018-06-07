@@ -1,6 +1,6 @@
 #include "BasicMotion.h"
 
-BasicMotion::BasicMotion(int camId)
+BasicMotion::BasicMotion()
 {
     //Widget constructors
     /////////////////////
@@ -149,6 +149,7 @@ BasicMotion::BasicMotion(int camId)
     camThread->start();
     namedWindow("Real time video", WINDOW_NORMAL);   
     */
+    cout << "\033[2J\033[1;1H" << endl;
 }
 
 BasicMotion::~BasicMotion()
@@ -168,6 +169,7 @@ void BasicMotion::closeEvent(QCloseEvent* event)
       remoteConnectionController1->kill();
     myThread->exit();
     QWidget::closeEvent(event);
+    cout << "\033[2J\033[1;1H" << endl;
     //camThread->setWorkingThread(false);
     //destroyWindow("Real time video");
     //camThread->exit();
@@ -511,6 +513,7 @@ void BasicMotion::clickedClosedButton()
     }
     if(controllerSynch)
       remoteConnectionController1->kill();
+    cout << "\033[2J\033[1;1H" << endl;
     this->close();
     //camThread->setWorkingThread(false);
     //destroyWindow("Real time video");

@@ -1,0 +1,6 @@
+-I/home/jess-linux/Documents/Projects/BasicMotion
+-I/home/jess-linux/Documents/Projects/BasicMotion
+-I/home/jess-linux/Documents/Projects/BasicMotion/build
+-o
+/home/jess-linux/Documents/Projects/BasicMotion/build/src/moc_BasicMotion.cpp
+/home/jess-linux/Documents/Projects/BasicMotion/src/BasicMotion.h

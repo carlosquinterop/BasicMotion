@@ -17,7 +17,6 @@
 #include <QTextEdit>
 #include <QTimer>
 #include "jscontroller.h"
-#include "cameraThread.h"
 
 #define sendCommandsTime 50
 #define showCommandsTime 500
@@ -28,7 +27,7 @@ class BasicMotion : public QMainWindow
     Q_OBJECT
 
 public:
-    BasicMotion(int camId);
+    BasicMotion();
     virtual ~BasicMotion();
     QGridLayout *PClayout, *controllerLayout;
     QGridLayout *mainLayout;
@@ -61,7 +60,6 @@ private:
     bool serialConnection;
     QTimer *sendCommandsTimer;
     QTimer *showCommandsTimer;
-    cameraThread *camThread;
     int nJoysticksConnected;
     bool controllerSynch;
     
