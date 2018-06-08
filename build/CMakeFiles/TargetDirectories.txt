@@ -1,3 +1,0 @@
-/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/edit_cache.dir
-/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/rebuild_cache.dir
-/home/jess-linux/Documents/Projects/BasicMotion/build/CMakeFiles/basicmotion.dir
