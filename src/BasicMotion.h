@@ -10,17 +10,31 @@
 #include <QLineEdit>
 #include <QSlider>
 #include <QDial>
+#include <QDialogButtonBox>
+#include <QDesktopWidget>
 #include <QProcess>
 #include <QtSerialPort/QSerialPort>
 #include <QtWidgets/QMessageBox>
 #include "workerThread.h"
-#include <QTextEdit>
+#include <QPlainTextEdit>
+#include <QGroupBox>
+#include <QScrollBar>
 #include <QTimer>
 #include "jscontroller.h"
 
-#define sendCommandsTime 50
+#define sendCommandsTime 30
 #define showCommandsTime 500
-
+#define NMAXCONTROLLERS 5
+#define IMG_PATH "img/image.jpeg"
+#define DEFAULT_MOVEBUTTON_NAME "Move"
+#define DEFAULT_STOPBUTTON_NAME "Stop"
+#define DEFAULT_SERIALBUTTON_NAME "Start Serial\n Connection"
+#define DEFAULT_SYNCHBUTTON_NAME "Pair Controller"
+#define DEFAULT_STARTBUTTON_NAME "Start"
+#define DEFAULT_CLOSEBUTTON_NAME "Close"
+#define DISCONNECT_SERIALBUTTON_NAME "Disconnect"
+#define STOP_STARTBUTTON_NAME "Stop"
+#define STOPSYNCH_SYNCHBUTTON_NAME "Stop Pairing"
 
 class BasicMotion : public QMainWindow
 {
@@ -29,21 +43,6 @@ class BasicMotion : public QMainWindow
 public:
     BasicMotion();
     virtual ~BasicMotion();
-    QGridLayout *PClayout, *controllerLayout;
-    QGridLayout *mainLayout;
-    QComboBox *PCrobotId, *controller1RobotId, *controller2RobotId;
-    QLineEdit *rightWheelVel;
-    QLineEdit *leftWheelVel;
-    QPushButton *moveButton;
-    QPushButton *stopButton;
-    QPushButton *connectButton;
-    QPushButton *synchButtonControllers;
-    QPushButton *startJoystickController;
-    QPushButton *closeButton;
-    QDial *steeringDial;
-    QSlider *speedSlider;
-    QCheckBox *pcControl, *wirelessControl;
-    QProcess *remoteConnectionController1;
     virtual void closeEvent ( QCloseEvent * event );
     int openSerialPort(QString port);
     QByteArray buildAllRobotsStopPacket();
@@ -54,9 +53,29 @@ public:
 private:
     QSerialPort *serialPort;
     QByteArray data;
+    QGridLayout *PClayout, *controllerLayout;
+    QGridLayout *mainLayout, *buttonsLayout, *controlLayout, *controlSelectionlayout;
+    QComboBox *PCrobotId, *controllersRobotId[NMAXCONTROLLERS];
+    QLineEdit *rightWheelVel;
+    QLineEdit *leftWheelVel;
+    QPushButton *moveButton;
+    QPushButton *stopButton;
+    QPushButton *connectButton;
+    QPushButton *synchButtonControllers;
+    QPushButton *startJoystickController;
+    QPushButton *closeButton;
+    QDialogButtonBox *buttonBox;
+    QDial *steeringDial;
+    QSlider *speedSlider;
+    QPixmap *imagePixmap;
+    QLabel *imageLabel, *appName;
+    QCheckBox *pcControl, *wirelessControl;
+    QPlainTextEdit *consoleTextEdit;
+    QGroupBox *gridGroupBox;
+    QProcess *remoteConnectionController;
     workerThread *myThread;
-    QString mOutputString1, mOutputString2;
-    int speedController1, steeringController1, speedController2, steeringController2;
+    QString mOutputString1;
+    int speedControllers[NMAXCONTROLLERS], steeringControllers[NMAXCONTROLLERS];
     bool serialConnection;
     QTimer *sendCommandsTimer;
     QTimer *showCommandsTimer;
@@ -73,7 +92,7 @@ public slots:
     void clickedConnectButton();
     void SynchButton();
     void processStarted();
-    void readyReadStandardOutput1();
+    void readyReadStandardOutput();
     void startJoystickSlot();
     void updateControllerCommands(int controllerId, int* controllerAxes);
     void sendControllerCommands();

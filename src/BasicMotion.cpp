@@ -2,15 +2,23 @@
 
 BasicMotion::BasicMotion()
 {
+    QDesktopWidget dw;
+    int x_window=dw.width()*0.3;
+    int y_window=dw.height()*0.9;
     //Widget constructors
     /////////////////////
+    mainLayout = new QGridLayout();
     PClayout = new QGridLayout();
     controllerLayout = new QGridLayout();
-    mainLayout = new QGridLayout();
+    buttonsLayout = new QGridLayout();
+    controlLayout = new QGridLayout();
+    controlSelectionlayout = new QGridLayout();    
+    
+    gridGroupBox = new QGroupBox("Options");
     
     PCrobotId = new QComboBox();
-    controller1RobotId = new QComboBox();
-    controller2RobotId = new QComboBox();
+    for (int i = 0;i < NMAXCONTROLLERS; i++)
+      controllersRobotId[i] = new QComboBox();
     
     pcControl = new QCheckBox("PC Control");
     wirelessControl = new QCheckBox("Remote Control");
@@ -18,39 +26,56 @@ BasicMotion::BasicMotion()
     rightWheelVel = new QLineEdit("0");
     leftWheelVel = new QLineEdit("0");
     
-    moveButton = new QPushButton("Move");
-    stopButton = new QPushButton("Stop");
-    connectButton = new QPushButton("Serial Connection");
-    synchButtonControllers = new QPushButton("Synch");
-    startJoystickController = new QPushButton("Start");
-    closeButton = new QPushButton("Close");
-    
+    moveButton = new QPushButton(DEFAULT_MOVEBUTTON_NAME);
+    stopButton = new QPushButton(DEFAULT_STOPBUTTON_NAME);
+    connectButton = new QPushButton(DEFAULT_SERIALBUTTON_NAME);
+    synchButtonControllers = new QPushButton(DEFAULT_SYNCHBUTTON_NAME);
+    startJoystickController = new QPushButton(DEFAULT_STARTBUTTON_NAME);
+    closeButton = new QPushButton(DEFAULT_CLOSEBUTTON_NAME);
+     
     steeringDial = new QDial();
-    
     speedSlider = new QSlider();
+    imagePixmap = new QPixmap();
+    imageLabel = new QLabel();
+    consoleTextEdit = new QPlainTextEdit();
+    buttonBox = new QDialogButtonBox(Qt::Horizontal);
+    
+    appName = new QLabel("Basic Robot Motion");
     
     QWidget *window = new QWidget();
     
     //Other objects
     myThread = new workerThread();
-    remoteConnectionController1 = new QProcess();
+    remoteConnectionController = new QProcess();
     sendCommandsTimer = new QTimer();
     showCommandsTimer = new QTimer();
     serialPort = new QSerialPort();
     ///////////////////////////////////////
     
-    
     //Add widgets
     //////////////////////////////////////
     
     //Add widgets to main layout
-    mainLayout->addWidget(connectButton, 0, 0);
-    mainLayout->addWidget(closeButton, 0, 1);
-    mainLayout->addLayout(PClayout, 1, 0);
-    mainLayout->addLayout(controllerLayout, 1, 1);
+    mainLayout->addWidget(appName, 0, 0);
+    mainLayout->addWidget(imageLabel, 1, 0);
+    mainLayout->addLayout(buttonsLayout, 2, 0);
+    mainLayout->addLayout(controlSelectionlayout, 3, 0);
+    mainLayout->addLayout(controlLayout, 4, 0);
+    mainLayout->addWidget(consoleTextEdit, 5, 0);
+    
+    //Add widgets to buttonsLayout
+    buttonsLayout->addWidget(connectButton, 0, 0);
+    buttonsLayout->addWidget(closeButton, 0, 1);
+    
+    //Add layouts to controlLayout
+    controlLayout->addLayout(PClayout, 0, 0);
+    controlLayout->addLayout(controllerLayout, 0, 1);
+        
+    //Add widgets to controlSelectionlayout
+    controlSelectionlayout->addWidget(pcControl, 0, 0, Qt::AlignCenter);
+    controlSelectionlayout->addWidget(wirelessControl, 0, 1, Qt::AlignCenter);
     
     //Add widgets to PC layout
-    PClayout->addWidget(pcControl, 0, 0);
     PClayout->addWidget(new QLabel("Robot ID"), 1, 0);
     PClayout->addWidget(PCrobotId, 1, 1);
     PClayout->addWidget(new QLabel("Left Wheel"), 2, 0);
@@ -63,20 +88,22 @@ BasicMotion::BasicMotion()
     PClayout->addWidget(speedSlider, 5, 1);
     
     //Add widgets to Controllers layout
-    controllerLayout->addWidget(wirelessControl, 0, 0);
     controllerLayout->addWidget(synchButtonControllers, 1, 0);
     controllerLayout->addWidget(startJoystickController, 2, 0);
-    controllerLayout->addWidget(new QLabel("Controller 1"), 3, 0);
-    controllerLayout->addWidget(new QLabel("Robot ID"), 4, 0);
-    controllerLayout->addWidget(controller1RobotId, 4, 1);
-    
-    controllerLayout->addWidget(new QLabel("Controller 2"), 5, 0);
-    controllerLayout->addWidget(new QLabel("Robot ID"), 6, 0);
-    controllerLayout->addWidget(controller2RobotId, 6, 1);
+    controllerLayout->addWidget(new QLabel("Controller 0 Robot ID"), 3, 0);
+    controllerLayout->addWidget(controllersRobotId[0], 3, 1);
+    controllerLayout->addWidget(new QLabel("Controller 1 Robot ID"), 4, 0);
+    controllerLayout->addWidget(controllersRobotId[1], 4, 1);
+    controllerLayout->addWidget(new QLabel("Controller 2 Robot ID"), 5, 0);
+    controllerLayout->addWidget(controllersRobotId[2], 5, 1);
+    controllerLayout->addWidget(new QLabel("Controller 3 Robot ID"), 6, 0);
+    controllerLayout->addWidget(controllersRobotId[3], 6, 1);
+    controllerLayout->addWidget(new QLabel("Controller 4 Robot ID"), 7, 0);
+    controllerLayout->addWidget(controllersRobotId[4], 7, 1);
     /////////////////////////////////////
     
-    
     //Widget initializations   
+    
     PCrobotId->addItem("0");
     PCrobotId->addItem("1");
     PCrobotId->addItem("2");
@@ -84,26 +111,36 @@ BasicMotion::BasicMotion()
     PCrobotId->addItem("4");
     PCrobotId->setCurrentIndex(1);
     
-    controller1RobotId->addItem("0");
-    controller1RobotId->addItem("1");
-    controller1RobotId->addItem("2");
-    controller1RobotId->addItem("3");
-    controller1RobotId->addItem("4");
-    controller1RobotId->setCurrentIndex(1);
-    
-    controller2RobotId->addItem("0");
-    controller2RobotId->addItem("1");
-    controller2RobotId->addItem("2");
-    controller2RobotId->addItem("3");
-    controller2RobotId->addItem("4");
-    controller2RobotId->setCurrentIndex(4);
+    for(int i = 0;i < NMAXCONTROLLERS;i++)
+    {
+      controllersRobotId[i]->addItem("0");
+      controllersRobotId[i]->addItem("1");
+      controllersRobotId[i]->addItem("2");
+      controllersRobotId[i]->addItem("3");
+      controllersRobotId[i]->addItem("4");
+      controllersRobotId[i]->setCurrentIndex(i);      
+    }
         
     leftWheelVel->setEnabled(false);
     rightWheelVel->setEnabled(false);
     moveButton->setEnabled(false);
     stopButton->setEnabled(false);
+    QPalette pal = connectButton->palette( );
+    pal.setColor(QPalette::Button, QColor(Qt::green));
+    connectButton->setAutoFillBackground(true);
+    connectButton->setPalette(pal);
+    connectButton->update();
     connectButton->setEnabled(true);
+    connectButton->setFixedSize(QSize(0.28*x_window, 0.1*y_window));
+    QPalette palClose = closeButton->palette( );
+    palClose.setColor(QPalette::Button, QColor(Qt::red));
+    closeButton->setAutoFillBackground(true);
+    closeButton->setPalette(palClose);
+    closeButton->update();
+    closeButton->setEnabled(true);
+    closeButton->setFixedSize(QSize(0.28*x_window, 0.1*y_window));
     startJoystickController->setEnabled(false);
+    PCrobotId->setEnabled(false);
     
     pcControl->setChecked(false);
     wirelessControl->setChecked(true);
@@ -115,16 +152,33 @@ BasicMotion::BasicMotion()
     steeringDial->setEnabled(false);
     speedSlider->setEnabled(false);
     
-    speedController1 = 0;
-    steeringController1 = 0;
-    speedController2 = 0;
-    steeringController2 = 0;
+    imagePixmap->load(IMG_PATH);
+    imageLabel->setPixmap(*imagePixmap);
+    imageLabel->setScaledContents(false);
+    imageLabel->setAlignment(Qt::AlignCenter);
+
+    QPalette p = consoleTextEdit->palette();
+    p.setColor(QPalette::Base, QColor(0, 0, 0));
+    p.setColor(QPalette::Text, Qt::white);
+    consoleTextEdit->setPalette(p);
+    consoleTextEdit->setEnabled(false);
+    consoleTextEdit->setMaximumBlockCount(10);
+    
+    appName->setAlignment(Qt::AlignCenter);
+    QFont f("Arial",16);
+    QFontMetrics fm(f);
+    appName->setFont(f);  
+    
+    memset(speedControllers, 0, sizeof(int)*NMAXCONTROLLERS);
+    memset(steeringControllers, 0, sizeof(int)*NMAXCONTROLLERS);
     nJoysticksConnected = 0;
     controllerSynch = false;
     serialConnection = false;
     
     window->setLayout(mainLayout);
     setCentralWidget(window);
+    window->setFixedSize(x_window,y_window);
+    setWindowTitle("Basic Robot Motion Application");
     
     QObject::connect(moveButton, SIGNAL(clicked(bool)), this, SLOT(wheelMove()));
     QObject::connect(stopButton, SIGNAL(clicked(bool)), this, SLOT(stop()));
@@ -135,21 +189,15 @@ BasicMotion::BasicMotion()
     QObject::connect(connectButton, SIGNAL(clicked()), this, SLOT(clickedConnectButton()));
     QObject::connect(closeButton, SIGNAL(clicked()), this, SLOT(clickedClosedButton()));
     QObject::connect(synchButtonControllers, SIGNAL(clicked()), this, SLOT(SynchButton()));
-    QObject::connect(remoteConnectionController1, SIGNAL(started()), this, SLOT(processStarted()));
-    QObject::connect(remoteConnectionController1, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processEnded(int, QProcess::ExitStatus)));
-    QObject::connect(remoteConnectionController1, SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput1()));
+    QObject::connect(remoteConnectionController, SIGNAL(started()), this, SLOT(processStarted()));
+    QObject::connect(remoteConnectionController, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processEnded(int, QProcess::ExitStatus)));
+    QObject::connect(remoteConnectionController, SIGNAL(readyReadStandardOutput()),this, SLOT(readyReadStandardOutput()));
     QObject::connect(startJoystickController,SIGNAL(clicked()),this,SLOT(startJoystickSlot()));
     QObject::connect(myThread,SIGNAL(updateJoystickAction(int, int*)),this, SLOT(updateControllerCommands(int, int*)));
     QObject::connect(sendCommandsTimer,SIGNAL(timeout()),this, SLOT(sendControllerCommands()));
     QObject::connect(showCommandsTimer,SIGNAL(timeout()),this, SLOT(showControllerCommands()));
-    
-    /*camThread = new cameraThread();
-    camThread->setWorkingThread(true);
-    camThread->setCamId(camId);
-    camThread->start();
-    namedWindow("Real time video", WINDOW_NORMAL);   
-    */
-    cout << "\033[2J\033[1;1H" << endl;
+ 
+    consoleTextEdit->setPlainText("Basic Robot Motion App started");
 }
 
 BasicMotion::~BasicMotion()
@@ -166,13 +214,9 @@ void BasicMotion::closeEvent(QCloseEvent* event)
 	serialConnection = false;
     }
     if (controllerSynch)
-      remoteConnectionController1->kill();
+      remoteConnectionController->kill();
     myThread->exit();
     QWidget::closeEvent(event);
-    cout << "\033[2J\033[1;1H" << endl;
-    //camThread->setWorkingThread(false);
-    //destroyWindow("Real time video");
-    //camThread->exit();
 }
 
 
@@ -187,8 +231,8 @@ int BasicMotion::openSerialPort(QString port)
     if(serialPort->open(QIODevice::ReadWrite)) 
     {
       serialConnection = true;
-      cout << "Connected to Serial Hub" << endl;
-       return 0;
+      consoleTextEdit->setPlainText("Successfully connected to serial hub");
+      return 0;
     } 
     else 
     {
@@ -212,7 +256,7 @@ QByteArray BasicMotion::buildAllRobotsStopPacket()
 
 void BasicMotion::sendRobotVelMultipleRobots(int *id, int *rightVel, int *leftVel)
 {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < NMAXCONTROLLERS; i++)
     {
       if(id[i] != -1)
       {
@@ -275,29 +319,24 @@ void BasicMotion::robotMove()
 
 void BasicMotion::robotMove2()
 {
-    int leftVels[2], rightVels[2];
-    int activeId[2];
-    memset(activeId, -1, sizeof(int)*2);
+    int leftVels[NMAXCONTROLLERS], rightVels[NMAXCONTROLLERS];
+    int activeId[NMAXCONTROLLERS];
+    memset(activeId, -1, sizeof(int)*NMAXCONTROLLERS);
     nJoysticksConnected = myThread->getnActiveJoysticks();
-    if (nJoysticksConnected > 0)
+    
+    for(int i = 0;i < NMAXCONTROLLERS; i++)
     {
-	float v = (float)(speedController1)/32768;
-	float w = (float)(steeringController1)*(3*M_PI_4)/32768;
-	float *wheelVels = robotInverseKinematic(v, w);
-	leftVels[0] = (int)(wheelVels[1]) + 0x7F;
-	rightVels[0] = (int)(wheelVels[0]) + 0x7F;
-	activeId[0] = controller1RobotId->currentIndex();
+	if (nJoysticksConnected > i)
+	{
+	  float v = (float)(speedControllers[i])/32768;
+	  float w = (float)(steeringControllers[i])*(3*M_PI_4)/32768;
+	  float *wheelVels = robotInverseKinematic(v, w);
+	  leftVels[i] = (int)(wheelVels[1]) + 0x7F;
+	  rightVels[i] = (int)(wheelVels[0]) + 0x7F;
+	  activeId[i] = controllersRobotId[i]->currentIndex();
+	}
     }
     
-    if (nJoysticksConnected > 1)
-    {
-	float v = (float)(speedController2)/32768;
-	float w = (float)(steeringController2)*(3*M_PI_4)/32768;
-	float *wheelVels = robotInverseKinematic(v, w);
-	leftVels[1] = (int)(wheelVels[1]) + 0x7F;
-	rightVels[1] = (int)(wheelVels[0]) + 0x7F;
-	activeId[1] = controller2RobotId->currentIndex();
-    }
     if (nJoysticksConnected > 0)
       sendRobotVelMultipleRobots(activeId, rightVels, leftVels);
 }
@@ -313,7 +352,13 @@ void BasicMotion::PCCheckBoxState(int state)
       stopButton->setEnabled(true);
       steeringDial->setEnabled(true);
       speedSlider->setEnabled(true);
+      PCrobotId->setEnabled(true);
+      for(int i=0;i < NMAXCONTROLLERS;i++)
+	controllersRobotId[i]->setEnabled(false);
       synchButtonControllers->setEnabled(false);
+      startJoystickController->setEnabled(false);
+      if(controllerSynch)
+      remoteConnectionController->kill();      
   }
   else
   {
@@ -324,7 +369,11 @@ void BasicMotion::PCCheckBoxState(int state)
       stopButton->setEnabled(false);
       steeringDial->setEnabled(false);
       speedSlider->setEnabled(false);
+      PCrobotId->setEnabled(false);
+      for(int i=0;i < NMAXCONTROLLERS;i++)
+	controllersRobotId[i]->setEnabled(true);
       synchButtonControllers->setEnabled(true);
+     startJoystickController->setEnabled(true);
   }
 }
 
@@ -339,7 +388,11 @@ void BasicMotion::WirelessCheckBoxState(int state)
       stopButton->setEnabled(true);
       steeringDial->setEnabled(true);
       speedSlider->setEnabled(true);
+      PCrobotId->setEnabled(true);
+      for(int i=0;i < NMAXCONTROLLERS;i++)
+	controllersRobotId[i]->setEnabled(false);
       synchButtonControllers->setEnabled(false);
+      startJoystickController->setEnabled(false);
   }
   else
   {
@@ -350,28 +403,32 @@ void BasicMotion::WirelessCheckBoxState(int state)
       stopButton->setEnabled(false);
       steeringDial->setEnabled(false);
       speedSlider->setEnabled(false);
+      PCrobotId->setEnabled(false);
+      for(int i=0;i < NMAXCONTROLLERS;i++)
+	controllersRobotId[i]->setEnabled(true);
       synchButtonControllers->setEnabled(true);
+      startJoystickController->setEnabled(false);
   }
 }
 
 void BasicMotion::clickedConnectButton()
 {
-    if (connectButton->text() == "Serial Connection")
+    if (connectButton->text() == DEFAULT_SERIALBUTTON_NAME)
     {
       serialPort = new QSerialPort();
       if (!openSerialPort("ttyUSB0"))
       {
-	connectButton->setText("Disconnect");
+	connectButton->setText(DISCONNECT_SERIALBUTTON_NAME);
 	data = buildAllRobotsStopPacket();
       }
     }
-    else if (connectButton->text() == "Disconnect")
+    else if (connectButton->text() == DISCONNECT_SERIALBUTTON_NAME)
     {
       if(serialPort->isOpen())
       {
 	serialPort->write(buildAllRobotsStopPacket());
         serialPort->close();
-	connectButton->setText("Serial Connection");
+	connectButton->setText(DEFAULT_SERIALBUTTON_NAME);
 	serialConnection = false;
       } 
     }
@@ -379,127 +436,116 @@ void BasicMotion::clickedConnectButton()
 
 void BasicMotion::SynchButton()
 {
-    if(synchButtonControllers->text() == "Synch")
-      remoteConnectionController1->start("ds4drv");
-    else if (synchButtonControllers->text() == "Stop synch")
-      remoteConnectionController1->kill();      
+    if(synchButtonControllers->text() == DEFAULT_SYNCHBUTTON_NAME)
+      remoteConnectionController->start("ds4drv");
+    else if (synchButtonControllers->text() == STOPSYNCH_SYNCHBUTTON_NAME)
+      remoteConnectionController->kill();      
 }
 
 void BasicMotion::processStarted()
 {
-    cout << "Process ds4drv Started" << endl;
-    synchButtonControllers->setText("Stop synch");
+    consoleTextEdit->appendPlainText("Process ds4drv Started");
+    synchButtonControllers->setText(STOPSYNCH_SYNCHBUTTON_NAME);
     controllerSynch = true;
     startJoystickController->setEnabled(true);
 }
 
 void BasicMotion::processEnded(int exitCode, QProcess::ExitStatus ExitStatus)
 {
-    cout << "Process ds4drv ended" << endl;
-    synchButtonControllers->setText("Synch");
+    consoleTextEdit->appendPlainText("Process ds4drv ended");
+    synchButtonControllers->setText(DEFAULT_SYNCHBUTTON_NAME);
     controllerSynch = false;
-    if (startJoystickController->text() == "Stop")
+    if (startJoystickController->text() == STOP_STARTBUTTON_NAME)
     {
 	myThread->setStarted(false);
-	startJoystickController->setText("Start");
+	startJoystickController->setText(DEFAULT_STARTBUTTON_NAME);
 	sendCommandsTimer->stop();
-	
     }
     startJoystickController->setEnabled(false);
 }
 
-void BasicMotion::readyReadStandardOutput1()
+void BasicMotion::readyReadStandardOutput()
 {
-    mOutputString1 = remoteConnectionController1->readAllStandardOutput();
-    cout << mOutputString1.toStdString() << endl;
+    mOutputString1 = remoteConnectionController->readAllStandardOutput();
+    consoleTextEdit->appendPlainText(mOutputString1);
 }
 
 void BasicMotion::startJoystickSlot()
 {
     if (serialConnection)
     {
-	if(startJoystickController->text() == "Start")
+	if(startJoystickController->text() == DEFAULT_STARTBUTTON_NAME)
 	{
 	    myThread->start();
-	    startJoystickController->setText("Stop");
+	    startJoystickController->setText(STOP_STARTBUTTON_NAME);
 	    sendCommandsTimer->start(sendCommandsTime);
 	}
-	else if (startJoystickController->text() == "Stop")
+	else if (startJoystickController->text() == STOP_STARTBUTTON_NAME)
 	{
 	    myThread->setStarted(false);
 	    myThread->exit();
-	    startJoystickController->setText("Start");
+	    startJoystickController->setText(DEFAULT_STARTBUTTON_NAME);
 	    sendCommandsTimer->stop();
 	}
     }
     else
     {
-	if(startJoystickController->text() == "Start")
+	if(startJoystickController->text() == DEFAULT_STARTBUTTON_NAME)
 	{
 	    myThread->start();
-	    startJoystickController->setText("Stop");
+	    startJoystickController->setText(STOP_STARTBUTTON_NAME);
 	    showCommandsTimer->start(showCommandsTime);
 	}
-	else if (startJoystickController->text() == "Stop")
+	else if (startJoystickController->text() == STOP_STARTBUTTON_NAME)
 	{
 	    myThread->setStarted(false);
 	    myThread->exit();
-	    startJoystickController->setText("Start");
+	    startJoystickController->setText(DEFAULT_STARTBUTTON_NAME);
 	    showCommandsTimer->stop();
 	}
     }
 }
 
-
 void BasicMotion::updateControllerCommands(int controllerId, int* controllerAxes)
 {
-    if (controllerId == 0)
+    for (int i = 0;i < NMAXCONTROLLERS;i++)
     {
-	speedController1 = (int)((-1*controllerAxes[5])/2);
-	steeringController1 = (int)((-1*controllerAxes[0])/2);
-    }
-    else if (controllerId == 1)
-    {
-	speedController2 = (int)((-1*controllerAxes[5])/2);
-	steeringController2 = (int)((-1*controllerAxes[0])/2);
-    }
-    else
-    {
-	cout << "Controller ID not valid" << endl;
+	if (controllerId == i)
+	{
+	    speedControllers[i] = (int)((-1*controllerAxes[5])/2);
+	    steeringControllers[i] = (int)((-1*controllerAxes[0])/2);
+	}
+	else
+	{
+	  consoleTextEdit->appendPlainText("Warning: Controller ID not valid");
+	}
     }
 }
 
 void BasicMotion::sendControllerCommands()
 {
     robotMove2();
-    if (myThread->getnActiveJoysticks() == 1)
+    int nActiveJoysticks = myThread->getnActiveJoysticks();
+    //consoleTextEdit->setPlainText("");
+    for (int i = 0;i < nActiveJoysticks;i++)
     {
-	cout << "\033[2J\033[1;1H" << endl;
-	cout << "1: (" << speedController1 << ", " << steeringController1 << ")" << endl;
-    }
-    else if (myThread->getnActiveJoysticks() == 2)
-    {
-	cout << "\033[2J\033[1;1H" << endl;
-	cout << "1: (" << speedController1 << ", " << steeringController1 << ")" << endl;
-	cout << "2: (" << speedController2 << ", " << steeringController2 << ")" << endl;
+	//cout << "\033[2J\033[1;1H" << endl;
+	//cout << i+1 << ": (" << speedControllers[i] << ", " << steeringControllers[i] << ")" << endl;
+	consoleTextEdit->setPlainText(QString::number(i+1)+": ("+QString::number(speedControllers[i])+", "+QString::number(steeringControllers[i])+")");
     }
 }
 
 void BasicMotion::showControllerCommands()
 {
-    if (myThread->getnActiveJoysticks() == 1)
+    int nActiveJoysticks = myThread->getnActiveJoysticks();
+    //consoleTextEdit->setPlainText("");
+    for (int i = 0;i < nActiveJoysticks;i++)
     {
-	cout << "\033[2J\033[1;1H" << endl;
-	cout << "1: (" << speedController1 << ", " << steeringController1 << ")" << endl;
-    }
-    else if (myThread->getnActiveJoysticks() == 2)
-    {
-	cout << "\033[2J\033[1;1H" << endl;
-	cout << "1: (" << speedController1 << ", " << steeringController1 << ")" << endl;
-	cout << "2: (" << speedController2 << ", " << steeringController2 << ")" << endl;
+	consoleTextEdit->setPlainText(QString::number(i+1)+": ("+QString::number(speedControllers[i])+", "+QString::number(steeringControllers[i])+")");
+   	//cout << "\033[2J\033[1;1H" << endl;
+	//cout << i+1 << ": (" << speedControllers[i] << ", " << steeringControllers[i] << ")" << endl;
     }
 }
-
 
 void BasicMotion::clickedClosedButton()
 {
@@ -512,10 +558,6 @@ void BasicMotion::clickedClosedButton()
 	serialConnection = false;
     }
     if(controllerSynch)
-      remoteConnectionController1->kill();
-    cout << "\033[2J\033[1;1H" << endl;
+      remoteConnectionController->kill();
     this->close();
-    //camThread->setWorkingThread(false);
-    //destroyWindow("Real time video");
-    //camThread->exit();
 }
