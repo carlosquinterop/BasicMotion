@@ -24,6 +24,8 @@
 #include <QProcess>
 #include "jscontroller.h"
 
+#define NMAXCONTROLLERS 5
+
 using namespace std;
 
 class workerThread : public QThread
@@ -38,7 +40,7 @@ public:
     bool isActive(int joystickIndex);
     int getnActiveJoysticks();
 private:
-    JsController *joystick[2];
+    JsController *joystick[NMAXCONTROLLERS];
     bool started;
     int nActiveJoysticks;
 signals:

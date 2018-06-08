@@ -26,34 +26,27 @@ workerThread::workerThread()
 void workerThread::run()
 {
   started = true;
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < NMAXCONTROLLERS; i++)
   {
     joystick[i] = new JsController();
     joystick[i]->setId(i);
     joystick[i]->connectJs();
   }
           
-  if ((joystick[0]->isActive) && (joystick[1]->isActive))
-    nActiveJoysticks = 2;
-  else if (!(joystick[0]->isActive) && (joystick[1]->isActive))
-    nActiveJoysticks = 1;
-  else if ((joystick[0]->isActive) && !(joystick[1]->isActive))
-    nActiveJoysticks = 1;
-  else
-    nActiveJoysticks = 0;
+  getnActiveJoysticks();
   
-    while(started)
+  while(started)
+  {
+    for (int i = 0; i < NMAXCONTROLLERS; i++)
     {
-      for (int i = 0; i < 2; i++)
+      if (joystick[i]->isActive)
       {
-	  if (joystick[i]->isActive)
-	  {
-	      if (joystick[i]->readJs() != -1)
-		emit updateJoystickAction(i, joystick[i]->axes);
-	  }
+	if (joystick[i]->readJs() != -1)
+	   emit updateJoystickAction(i, joystick[i]->axes);
       }
     }
-  for (int i = 0; i < 2; i++)
+  }
+  for (int i = 0; i < NMAXCONTROLLERS; i++)
     joystick[i]->closeJs();
 }
 
@@ -70,7 +63,6 @@ bool workerThread::getStarted()
 
 bool workerThread::isActive(int joystickIndex)
 {
-    //cout << "joystick[" << joystickIndex << "] = " << endl;
     if ((joystick[joystickIndex]->isActive) && (joystick[joystickIndex]->readJs() != -1))
       return true;
     else
@@ -79,14 +71,12 @@ bool workerThread::isActive(int joystickIndex)
 
 int workerThread::getnActiveJoysticks()
 {
-  if ((joystick[0]->isActive) && (joystick[1]->isActive))
-    nActiveJoysticks = 2;
-  else if (!(joystick[0]->isActive) && (joystick[1]->isActive))
-    nActiveJoysticks = 1;
-  else if ((joystick[0]->isActive) && !(joystick[1]->isActive))
-    nActiveJoysticks = 1;
-  else
-    nActiveJoysticks = 0;
+  nActiveJoysticks = 0;
+  for (int i = 0;i < NMAXCONTROLLERS;i++)
+  {
+      if(joystick[i]->isActive)
+	nActiveJoysticks++;
+  }
   
   return nActiveJoysticks;
 }
