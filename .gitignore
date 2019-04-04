@@ -33,3 +33,7 @@
 
 #QT
 *.kdev4
+
+#build and binary folders
+build/
+bin/

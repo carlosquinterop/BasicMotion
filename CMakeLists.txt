@@ -30,6 +30,10 @@ find_package(Qt5Core)
 include_directories(${Qt5Core_INCLUDES})
 list(APPEND libs ${Qt5Core_LIBRARIES})
 
+find_package( OpenCV REQUIRED )
+include_directories(${OpenCV_INCLUDE_DIRS})
+list(APPEND libs ${OpenCV_LIBS})
+
 include_directories(${PROJECT_SOURCE_DIR})
 
 set(SOURCES

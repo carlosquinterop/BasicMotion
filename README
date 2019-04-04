@@ -27,13 +27,20 @@ SYSTEMS REQUIREMENTS
 
 INSTALLATION:
 	sudo apt-get install build-essential cmake qtdeclarative5-dev libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libqt5serialport5-dev
-	sudo apt-get install python-pip
-	sudo pip install ds4drv 
+	-	sudo apt-get install python-pip
+	-	sudo pip install ds4drv
+	Download openCV from https://github.com/opencv/opencv
+	Create a temporary directory "release" inside the opencv directory, cd into that folder and type: 
+	-	cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+	Finally, type:
+	-	make
+	-	sudo make install
 	
 COMPILATION
 	- mkdir build && cd build
 	- cmake ..
 	- make
 
-EXECUTION
+EXECUTION: 
+	sudo privilege is required to handle the remote controller signals
 	- sudo ./bin/basicmotion
