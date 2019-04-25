@@ -165,10 +165,10 @@ BasicMotion::BasicMotion()
       controllersRobotId[i]->setCurrentIndex(i);      
     }
         
-    leftWheelVel->setEnabled(false);
-    rightWheelVel->setEnabled(false);
-    moveButton->setEnabled(false);
-    stopButton->setEnabled(false);
+    leftWheelVel->setEnabled(true);
+    rightWheelVel->setEnabled(true);
+    moveButton->setEnabled(true);
+    stopButton->setEnabled(true);
     QPalette pal = connectButton->palette( );
     pal.setColor(QPalette::Button, QColor(Qt::green));
     connectButton->setAutoFillBackground(true);
@@ -184,10 +184,10 @@ BasicMotion::BasicMotion()
     closeButton->setEnabled(true);
     closeButton->setFixedSize(QSize(0.28*x_window, 0.1*y_window));
     startJoystickController->setEnabled(false);
-    PCrobotId->setEnabled(false);
+    PCrobotId->setEnabled(true);
     
-    pcControl->setChecked(false);
-    wirelessControl->setChecked(true);
+    pcControl->setChecked(true);
+    wirelessControl->setChecked(false);
     steeringDial->setRange(-50, 50);
     steeringDial->setValue(0);
     
@@ -330,8 +330,8 @@ void BasicMotion::sendRobotVelOneRobot(int id, int rightVel, int leftVel)
 float* BasicMotion::robotInverseKinematic(float v, float w)
 {
     float *wheelVels = (float*)(malloc(sizeof(float)*2));;
-    float L = 0.1;
-    float R = 0.025;
+    float L = 0.07;
+    float R = 0.022;
     float K = 3.175;
     wheelVels[0] = (int)(((2*v + w*L)/(2*R))*K);
     wheelVels[1] = (int)(((2*v - w*L)/(2*R))*K);
@@ -704,15 +704,17 @@ void BasicMotion::sendRobotLinearVelocity()
 {
   if (movingForwardCheckBox->isChecked())
   {
-    int v= forwardVel->text().toInt();  //rango de velocidades? 
-    int w= rightAngularVel->text().toInt();
+    float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
     float *linearVels = robotInverseKinematic(v, w);
+    //printf("vel=%f,w=%f,rightWheel=%f,leftWheel=%f",v,w,linearVels[0],linearVels[1]);
+    cout << "velocidad " << v << "w " << w << endl; 
     sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(linearVels[0])+0x7F, (int)(linearVels[1])+0x7F);   
   }
   else if (movingBackwardsCheckBox->isChecked())
   {
-   int v= forwardVel->text().toInt();  //rango de velocidades? 
-    int w= rightAngularVel->text().toInt();
+   float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
     float *linearVels = robotInverseKinematic(v, w);
     sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(-linearVels[0])+0x7F, (int)(-linearVels[1])+0x7F);   
   }
@@ -723,34 +725,40 @@ void BasicMotion::sendRobotAngularVelocity()
 {
   if (turningLeftCheckBox->isChecked())
   {
-    int v= forwardVel->text().toInt();  //rango de velocidades? 
-    int w= rightAngularVel->text().toInt();
+    float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
     float *angularVels = robotInverseKinematic(v, w);
-    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(angularVels[0])+0x7F, (int)-(angularVels[1])+0x7F);   
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(angularVels[0])+0x7F, (int)(angularVels[1])+0x7F);   
   }
   else if(turningRightCheckBox->isChecked())
   {
-    int v= forwardVel->text().toInt();  //rango de velocidades? 
-    int w= rightAngularVel->text().toInt();
+    float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
     float *angularVels = robotInverseKinematic(v, w);
-    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)-(angularVels[0])+0x7F, (int)(angularVels[1])+0x7F); 
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(-angularVels[0])+0x7F, (int)(-angularVels[1])+0x7F); 
   }
 }
 
 void BasicMotion::makeCircleOfRadiusX()
 {
   //Para que el robot de un círculo de radio x, determine cuál es la v y w para encontrar la velocidad vr y vl. 
-  // r=v/w  
-  //v=(R/2)(vr+vl)                   
-  //w=(R/L)(vr-vl)
+
    float *wheelVelsRadiusX = (float*)(malloc(sizeof(float)*2));;
-   int v= linearVel->text().toInt();
-   int w= angularVel->text().toInt();
-   float L = 0.1;
-   float R = 0.025;
-   wheelVelsRadiusX[0]=(2*v)/(R)-wheelVelsRadiusX[1];
-   wheelVelsRadiusX[1]=wheelVelsRadiusX[0]-(w*L)/(R);
-   sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(wheelVelsRadiusX[0])+0x7F, (int)(wheelVelsRadiusX[1])+0x7F);
+   float right, left;
+   float v = linearVel->text().toFloat();
+   float w = angularVel->text().toFloat();
+   float L = 0.07;
+   float R = 0.022;
+   
+   //escriba aquí sus ecuaciones 
+  
+   
+   
+   
+   
+   
+   
+   sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(right)+0x7F, (int)(left)+0x7F);
 }
 
 
