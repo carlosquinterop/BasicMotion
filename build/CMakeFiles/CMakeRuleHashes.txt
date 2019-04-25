@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+9220e364fe5224ecc5d99da90611320b src/moc_BasicMotion.cpp
+b57eb0a636815ab672763346bb1e1386 src/moc_jscontroller.cpp
+6138cc591240e46380b97051d127c855 src/moc_workerThread.cpp

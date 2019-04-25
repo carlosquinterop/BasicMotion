@@ -1,0 +1,3 @@
+/home/adelaidazuluaga/Documents/BasicMotion-master/build/CMakeFiles/edit_cache.dir
+/home/adelaidazuluaga/Documents/BasicMotion-master/build/CMakeFiles/rebuild_cache.dir
+/home/adelaidazuluaga/Documents/BasicMotion-master/build/CMakeFiles/basicmotion.dir

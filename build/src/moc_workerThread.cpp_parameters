@@ -1,0 +1,6 @@
+-I/home/adelaidazuluaga/Documents/BasicMotion-master
+-I/home/adelaidazuluaga/Documents/BasicMotion-master
+-I/home/adelaidazuluaga/Documents/BasicMotion-master/build
+-o
+/home/adelaidazuluaga/Documents/BasicMotion-master/build/src/moc_workerThread.cpp
+/home/adelaidazuluaga/Documents/BasicMotion-master/src/workerThread.h
