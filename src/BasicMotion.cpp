@@ -3,7 +3,7 @@
 BasicMotion::BasicMotion()
 {
     QDesktopWidget dw;
-    int x_window=dw.width()*0.3;
+    int x_window=dw.width()*0.55;
     int y_window=dw.height()*0.9;
     //Widget constructors
     /////////////////////
@@ -12,7 +12,9 @@ BasicMotion::BasicMotion()
     controllerLayout = new QGridLayout();
     buttonsLayout = new QGridLayout();
     controlLayout = new QGridLayout();
-    controlSelectionlayout = new QGridLayout();    
+    controlSelectionlayout = new QGridLayout(); 
+    robotMovement= new QGridLayout();
+    robotRadio= new QGridLayout();
     
     gridGroupBox = new QGroupBox("Options");
     
@@ -40,6 +42,21 @@ BasicMotion::BasicMotion()
     consoleTextEdit = new QPlainTextEdit();
     buttonBox = new QDialogButtonBox(Qt::Horizontal);
     
+    movingForwardCheckBox= new QCheckBox("Forward");
+    movingBackwardsCheckBox= new QCheckBox("Backwards");
+    turningLeftCheckBox= new QCheckBox("Turn left");
+    turningRightCheckBox= new QCheckBox("Turn right");
+    
+    forwardVel= new QLineEdit();
+    rightAngularVel= new QLineEdit();
+    
+    
+    linearVel= new QLineEdit();
+    angularVel= new QLineEdit();
+    linearMovementButton = new QPushButton(LINEAR_MOVEMENT_BUTTON_NAME);
+    angularMovementButton= new QPushButton(ANGULAR_MOVEMENT_BUTTON_NAME);
+    makeRadiusX= new QPushButton(MAKE_RADIUS_BUTTON); 
+      
     appName = new QLabel("Basic Robot Motion");
     
     QWidget *window = new QWidget();
@@ -62,6 +79,8 @@ BasicMotion::BasicMotion()
     mainLayout->addLayout(controlSelectionlayout, 3, 0);
     mainLayout->addLayout(controlLayout, 4, 0);
     mainLayout->addWidget(consoleTextEdit, 5, 0);
+    mainLayout->addLayout(robotMovement, 3, 1);
+    mainLayout-> addLayout(robotRadio, 4,1);
     
     //Add widgets to buttonsLayout
     buttonsLayout->addWidget(connectButton, 0, 0);
@@ -100,8 +119,33 @@ BasicMotion::BasicMotion()
     controllerLayout->addWidget(controllersRobotId[3], 6, 1);
     controllerLayout->addWidget(new QLabel("Controller 4 Robot ID"), 7, 0);
     controllerLayout->addWidget(controllersRobotId[4], 7, 1);
-    /////////////////////////////////////
     
+    
+    // Robot movement layout
+     robotMovement->addWidget(new QLabel("Robot movement"), 1, 0);
+     robotMovement-> addWidget(movingForwardCheckBox, 2,0);
+     robotMovement->addWidget(forwardVel, 2,1);
+     robotMovement->addWidget(new QLabel("Linear velocity (m/s)"),2,2);
+     robotMovement-> addWidget(movingBackwardsCheckBox, 3,0);
+     robotMovement-> addWidget(linearMovementButton,3,1);
+     robotMovement-> addWidget(turningRightCheckBox, 4,0);
+     robotMovement->addWidget(rightAngularVel,4,1);
+     robotMovement->addWidget(new QLabel("Angular velocity (rad/s)"),4,2);
+     robotMovement-> addWidget(turningLeftCheckBox, 5,0);
+     robotMovement-> addWidget(angularMovementButton,5,1);
+         
+     
+    //Radio robot
+     robotRadio-> addWidget(new QLabel("Robot radio"), 0, 0);
+     robotRadio-> addWidget(linearVel, 1,0);
+     robotRadio->addWidget(new QLabel("Linear velocity (m/s)"),1,1);
+     robotRadio-> addWidget(angularVel, 2,0);
+     robotRadio->addWidget(new QLabel("Angular velocity (m/s)"),2,1);
+     robotRadio-> addWidget(makeRadiusX,3,0);
+     
+    /////////////////////////////////////
+     
+     
     //Widget initializations   
     
     PCrobotId->addItem("0");
@@ -121,10 +165,10 @@ BasicMotion::BasicMotion()
       controllersRobotId[i]->setCurrentIndex(i);      
     }
         
-    leftWheelVel->setEnabled(false);
-    rightWheelVel->setEnabled(false);
-    moveButton->setEnabled(false);
-    stopButton->setEnabled(false);
+    leftWheelVel->setEnabled(true);
+    rightWheelVel->setEnabled(true);
+    moveButton->setEnabled(true);
+    stopButton->setEnabled(true);
     QPalette pal = connectButton->palette( );
     pal.setColor(QPalette::Button, QColor(Qt::green));
     connectButton->setAutoFillBackground(true);
@@ -140,10 +184,10 @@ BasicMotion::BasicMotion()
     closeButton->setEnabled(true);
     closeButton->setFixedSize(QSize(0.28*x_window, 0.1*y_window));
     startJoystickController->setEnabled(false);
-    PCrobotId->setEnabled(false);
+    PCrobotId->setEnabled(true);
     
-    pcControl->setChecked(false);
-    wirelessControl->setChecked(true);
+    pcControl->setChecked(true);
+    wirelessControl->setChecked(false);
     steeringDial->setRange(-50, 50);
     steeringDial->setValue(0);
     
@@ -196,7 +240,14 @@ BasicMotion::BasicMotion()
     QObject::connect(myThread,SIGNAL(updateJoystickAction(int, int*)),this, SLOT(updateControllerCommands(int, int*)));
     QObject::connect(sendCommandsTimer,SIGNAL(timeout()),this, SLOT(sendControllerCommands()));
     QObject::connect(showCommandsTimer,SIGNAL(timeout()),this, SLOT(showControllerCommands()));
- 
+    QObject::connect(movingForwardCheckBox, SIGNAL(stateChanged(int)), this, SLOT(movingForwardCheckBoxState(int)));
+    QObject::connect(movingBackwardsCheckBox, SIGNAL(stateChanged(int)), this, SLOT(movingBackwardCheckBoxState(int)));
+    QObject::connect(turningLeftCheckBox, SIGNAL(stateChanged(int)), this, SLOT(turningLeftCheckBoxState(int)));
+    QObject::connect(turningRightCheckBox, SIGNAL(stateChanged(int)), this, SLOT(turningRightCheckBoxState(int)));
+    QObject::connect(angularMovementButton, SIGNAL(clicked(bool)), this, SLOT(sendRobotAngularVelocity()));
+    QObject::connect(linearMovementButton, SIGNAL (clicked(bool)), this, SLOT(sendRobotLinearVelocity()));
+    QObject::connect(makeRadiusX, SIGNAL (clicked(bool)), this, SLOT(makeCircleOfRadiusX()));
+    
     consoleTextEdit->setPlainText("Basic Robot Motion App started");
 }
 
@@ -279,13 +330,13 @@ void BasicMotion::sendRobotVelOneRobot(int id, int rightVel, int leftVel)
 float* BasicMotion::robotInverseKinematic(float v, float w)
 {
     float *wheelVels = (float*)(malloc(sizeof(float)*2));;
-    float L = 0.1;
-    float R = 0.025;
+    float L = 0.07;
+    float R = 0.022;
     float K = 3.175;
     wheelVels[0] = (int)(((2*v + w*L)/(2*R))*K);
     wheelVels[1] = (int)(((2*v - w*L)/(2*R))*K);
     return wheelVels;
-}
+} 
 
 void BasicMotion::wheelMove()
 {
@@ -561,3 +612,155 @@ void BasicMotion::clickedClosedButton()
       remoteConnectionController->kill();
     this->close();
 }
+
+void BasicMotion::movingForwardCheckBoxState(int state)
+{
+  if (movingForwardCheckBox->isChecked())
+     { 
+       movingBackwardsCheckBox->setEnabled(false);
+       turningLeftCheckBox->setEnabled(false);
+       turningRightCheckBox->setEnabled(false);
+       forwardVel->setReadOnly(false);
+       rightAngularVel->setText("0");
+       rightAngularVel->setReadOnly(true);
+     }
+     else 
+     {
+      movingBackwardsCheckBox->setEnabled(true);
+      movingForwardCheckBox->setEnabled(true);
+      turningLeftCheckBox->setEnabled(true);
+      turningRightCheckBox->setEnabled(true);
+      rightAngularVel->setText("");
+       rightAngularVel->setReadOnly(false);
+     } 
+}
+void BasicMotion::movingBackwardCheckBoxState(int state)
+{
+  if (movingBackwardsCheckBox->isChecked())
+     { 
+       movingForwardCheckBox->setEnabled(false);
+       turningLeftCheckBox->setEnabled(false);
+       turningRightCheckBox->setEnabled(false);
+       rightAngularVel->setText("0");
+       rightAngularVel->setReadOnly(true);
+     }
+      else 
+     {
+      movingBackwardsCheckBox->setEnabled(true);
+      movingForwardCheckBox->setEnabled(true);
+      turningLeftCheckBox->setEnabled(true);
+      turningRightCheckBox->setEnabled(true);
+      rightAngularVel->setText("");
+       rightAngularVel->setReadOnly(false);
+     } 
+}
+
+
+void BasicMotion::turningLeftCheckBoxState(int state)
+{
+  if (turningLeftCheckBox->isChecked())
+     { 
+       movingForwardCheckBox->setEnabled(false);
+       turningRightCheckBox->setEnabled(false);
+       movingBackwardsCheckBox->setEnabled(false);
+       forwardVel->setText("0");
+       forwardVel->setReadOnly(true);
+     }
+     else 
+     {
+      movingBackwardsCheckBox->setEnabled(true);
+      movingForwardCheckBox->setEnabled(true);
+      turningLeftCheckBox->setEnabled(true);
+      turningRightCheckBox->setEnabled(true);
+      forwardVel->setText("");
+       forwardVel->setReadOnly(false);
+     } 
+	 
+}
+
+void BasicMotion::turningRightCheckBoxState(int state)
+{
+  if (turningRightCheckBox->isChecked())
+     { 
+      movingForwardCheckBox->setEnabled(false);
+      movingBackwardsCheckBox->setEnabled(false);
+      turningLeftCheckBox->setEnabled(false);
+      forwardVel->setText("0");
+      forwardVel->setReadOnly(true);
+       
+     }
+     else 
+     {
+      movingBackwardsCheckBox->setEnabled(true);
+      movingForwardCheckBox->setEnabled(true);
+      turningLeftCheckBox->setEnabled(true);
+      turningRightCheckBox->setEnabled(true);
+      forwardVel->setText("");
+      forwardVel->setReadOnly(true);
+     } 
+}
+
+void BasicMotion::sendRobotLinearVelocity()
+{
+  if (movingForwardCheckBox->isChecked())
+  {
+    float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
+    float *linearVels = robotInverseKinematic(v, w);
+    //printf("vel=%f,w=%f,rightWheel=%f,leftWheel=%f",v,w,linearVels[0],linearVels[1]);
+    cout << "velocidad " << v << "w " << w << endl; 
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(linearVels[0])+0x7F, (int)(linearVels[1])+0x7F);   
+  }
+  else if (movingBackwardsCheckBox->isChecked())
+  {
+   float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
+    float *linearVels = robotInverseKinematic(v, w);
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(-linearVels[0])+0x7F, (int)(-linearVels[1])+0x7F);   
+  }
+  
+}
+
+void BasicMotion::sendRobotAngularVelocity()
+{
+  if (turningLeftCheckBox->isChecked())
+  {
+    float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
+    float *angularVels = robotInverseKinematic(v, w);
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(angularVels[0])+0x7F, (int)(angularVels[1])+0x7F);   
+  }
+  else if(turningRightCheckBox->isChecked())
+  {
+    float v= forwardVel->text().toFloat();  //rango de velocidades? 
+    float w= rightAngularVel->text().toFloat();
+    float *angularVels = robotInverseKinematic(v, w);
+    sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(-angularVels[0])+0x7F, (int)(-angularVels[1])+0x7F); 
+  }
+}
+
+void BasicMotion::makeCircleOfRadiusX()
+{
+  //Para que el robot de un círculo de radio x, determine cuál es la v y w para encontrar la velocidad vr y vl. 
+
+   float *wheelVelsRadiusX = (float*)(malloc(sizeof(float)*2));;
+   float right, left;
+   float v = linearVel->text().toFloat();
+   float w = angularVel->text().toFloat();
+   float L = 0.07;
+   float R = 0.022;
+   
+   //escriba aquí sus ecuaciones 
+  
+   
+   
+   
+   
+   
+   
+   sendRobotVelOneRobot(PCrobotId->currentIndex(), (int)(right)+0x7F, (int)(left)+0x7F);
+}
+
+
+
+

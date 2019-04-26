@@ -35,6 +35,9 @@
 #define DISCONNECT_SERIALBUTTON_NAME "Disconnect"
 #define STOP_STARTBUTTON_NAME "Stop"
 #define STOPSYNCH_SYNCHBUTTON_NAME "Stop Pairing"
+#define LINEAR_MOVEMENT_BUTTON_NAME "Start v"
+#define ANGULAR_MOVEMENT_BUTTON_NAME "Start w"
+#define MAKE_RADIUS_BUTTON "Make circle"
 
 class BasicMotion : public QMainWindow
 {
@@ -53,7 +56,7 @@ public:
 private:
     QSerialPort *serialPort;
     QByteArray data;
-    QGridLayout *PClayout, *controllerLayout;
+    QGridLayout *PClayout, *controllerLayout, *robotMovement, *robotRadio;
     QGridLayout *mainLayout, *buttonsLayout, *controlLayout, *controlSelectionlayout;
     QComboBox *PCrobotId, *controllersRobotId[NMAXCONTROLLERS];
     QLineEdit *rightWheelVel;
@@ -68,8 +71,11 @@ private:
     QDial *steeringDial;
     QSlider *speedSlider;
     QPixmap *imagePixmap;
-    QLabel *imageLabel, *appName;
-    QCheckBox *pcControl, *wirelessControl;
+    QLabel *imageLabel, *appName; 
+    QLineEdit *forwardVel, *backwardVel, *rightAngularVel, *leftAngularVel;
+    QLineEdit *linearVel, *angularVel;
+    QCheckBox *pcControl, *wirelessControl, *movingForwardCheckBox, *movingBackwardsCheckBox, *turningRightCheckBox, *turningLeftCheckBox;
+    QPushButton *linearMovementButton, *angularMovementButton, *makeRadiusX;
     QPlainTextEdit *consoleTextEdit;
     QGroupBox *gridGroupBox;
     QProcess *remoteConnectionController;
@@ -98,6 +104,13 @@ public slots:
     void sendControllerCommands();
     void showControllerCommands();
     void clickedClosedButton();
+    void movingForwardCheckBoxState(int state );
+    void movingBackwardCheckBoxState(int state);
+    void turningLeftCheckBoxState(int state );
+    void turningRightCheckBoxState(int state);
+    void sendRobotAngularVelocity();
+    void sendRobotLinearVelocity();
+    void makeCircleOfRadiusX();
     void processEnded(int exitCode, QProcess::ExitStatus existStatus);
 };
 
